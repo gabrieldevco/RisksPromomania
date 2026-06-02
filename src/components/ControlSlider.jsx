@@ -12,11 +12,11 @@ const ControlSlider = ({ risk, onControlChange }) => {
 
   return (
     <div style={{
-      background: 'linear-gradient(135deg, #F3E8FF, #EDE9FE)',
+      background: 'var(--bg-hover)',
       borderRadius: '16px',
       padding: '1.25rem',
       marginTop: '1.25rem',
-      border: '1px solid #DDD6FE'
+      border: '1px solid var(--border-color)'
     }}>
       <div style={{
         display: 'flex',
@@ -109,14 +109,14 @@ const ControlSlider = ({ risk, onControlChange }) => {
 
       {/* Descripción del nivel actual */}
       <div style={{
-        background: 'white',
+        background: 'var(--bg-card)',
         borderRadius: '10px',
         padding: '0.75rem 1rem',
-        border: '1px solid #DDD6FE'
+        border: '1px solid var(--border-color)'
       }}>
         <p style={{
           fontSize: '0.8125rem',
-          color: '#6B7280',
+          color: 'var(--text-secondary)',
           margin: 0,
           display: 'flex',
           alignItems: 'center',

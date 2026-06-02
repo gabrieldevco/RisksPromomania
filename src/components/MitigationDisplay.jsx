@@ -13,11 +13,11 @@ const MitigationDisplay = ({ risk }) => {
   if (!hasChanged) {
     return (
       <div style={{
-        background: '#FEF2F2',
+        background: 'rgba(220, 38, 38, 0.1)',
         borderRadius: '12px',
         padding: '1rem',
         marginTop: '1rem',
-        border: '1px solid #FECACA',
+        border: '1px solid rgba(220, 38, 38, 0.2)',
         display: 'flex',
         alignItems: 'center',
         gap: '0.75rem'
@@ -38,11 +38,11 @@ const MitigationDisplay = ({ risk }) => {
 
   return (
     <div style={{
-      background: 'linear-gradient(135deg, #ECFDF5, #D1FAE5)',
+      background: 'rgba(22, 163, 74, 0.1)',
       borderRadius: '16px',
       padding: '1.25rem',
       marginTop: '1rem',
-      border: '1px solid #A7F3D0'
+      border: '1px solid rgba(22, 163, 74, 0.2)'
     }}>
       {/* Header */}
       <div style={{
@@ -51,7 +51,7 @@ const MitigationDisplay = ({ risk }) => {
         gap: '0.75rem',
         marginBottom: '1rem',
         paddingBottom: '1rem',
-        borderBottom: '1px solid #A7F3D0'
+        borderBottom: '1px solid rgba(22, 163, 74, 0.2)'
       }}>
         <div style={{
           background: '#16A34A',
@@ -89,15 +89,15 @@ const MitigationDisplay = ({ risk }) => {
       }}>
         {/* Original */}
         <div style={{
-          background: 'white',
+          background: 'var(--bg-card)',
           borderRadius: '12px',
           padding: '1rem',
           textAlign: 'center',
-          border: '1px solid #E5E7EB'
+          border: '1px solid var(--border-color)'
         }}>
           <div style={{
             fontSize: '0.625rem',
-            color: '#9CA3AF',
+            color: 'var(--text-muted)',
             textTransform: 'uppercase',
             letterSpacing: '0.05em',
             marginBottom: '0.5rem',
@@ -110,7 +110,7 @@ const MitigationDisplay = ({ risk }) => {
           }}>{originalLevel}</div>
           <div style={{
             fontSize: '0.75rem',
-            color: '#6B7280',
+            color: 'var(--text-secondary)',
             fontWeight: 500,
             marginTop: '0.25rem'
           }}>{getZoneLabel(originalZone)}</div>
@@ -131,7 +131,7 @@ const MitigationDisplay = ({ risk }) => {
 
         {/* Residual */}
         <div style={{
-          background: 'white',
+          background: 'var(--bg-card)',
           borderRadius: '12px',
           padding: '1rem',
           textAlign: 'center',
@@ -140,7 +140,7 @@ const MitigationDisplay = ({ risk }) => {
         }}>
           <div style={{
             fontSize: '0.625rem',
-            color: '#9CA3AF',
+            color: 'var(--text-muted)',
             textTransform: 'uppercase',
             letterSpacing: '0.05em',
             marginBottom: '0.5rem',
@@ -153,7 +153,7 @@ const MitigationDisplay = ({ risk }) => {
           }}>{residualLevel}</div>
           <div style={{
             fontSize: '0.75rem',
-            color: '#6B7280',
+            color: 'var(--text-secondary)',
             fontWeight: 500,
             marginTop: '0.25rem'
           }}>{getZoneLabel(residualZone)}</div>
@@ -167,33 +167,33 @@ const MitigationDisplay = ({ risk }) => {
         gap: '0.75rem',
         marginTop: '1rem',
         paddingTop: '1rem',
-        borderTop: '1px solid #A7F3D0'
+        borderTop: '1px solid rgba(22, 163, 74, 0.2)'
       }}>
-        <div style={{ 
+        <div style={{
           textAlign: 'center',
-          background: 'white',
+          background: 'var(--bg-card)',
           padding: '0.75rem',
           borderRadius: '10px'
         }}>
-          <div style={{ fontSize: '0.625rem', color: '#9CA3AF', fontWeight: 600 }}>Probabilidad</div>
+          <div style={{ fontSize: '0.625rem', color: 'var(--text-muted)', fontWeight: 600 }}>Probabilidad</div>
           <div style={{ fontSize: '1rem', fontWeight: 700, color: '#6B21A8', marginTop: '0.25rem' }}>{risk.probability}</div>
         </div>
-        <div style={{ 
+        <div style={{
           textAlign: 'center',
-          background: 'white',
+          background: 'var(--bg-card)',
           padding: '0.75rem',
           borderRadius: '10px'
         }}>
-          <div style={{ fontSize: '0.625rem', color: '#9CA3AF', fontWeight: 600 }}>Impacto Original</div>
-          <div style={{ fontSize: '1rem', fontWeight: 700, color: '#9CA3AF', textDecoration: 'line-through', marginTop: '0.25rem' }}>{risk.impact}</div>
+          <div style={{ fontSize: '0.625rem', color: 'var(--text-muted)', fontWeight: 600 }}>Impacto Original</div>
+          <div style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-muted)', textDecoration: 'line-through', marginTop: '0.25rem' }}>{risk.impact}</div>
         </div>
-        <div style={{ 
+        <div style={{
           textAlign: 'center',
-          background: 'white',
+          background: 'var(--bg-card)',
           padding: '0.75rem',
           borderRadius: '10px'
         }}>
-          <div style={{ fontSize: '0.625rem', color: '#9CA3AF', fontWeight: 600 }}>Impacto Residual</div>
+          <div style={{ fontSize: '0.625rem', color: 'var(--text-muted)', fontWeight: 600 }}>Impacto Residual</div>
           <div style={{ fontSize: '1rem', fontWeight: 700, color: '#16A34A', marginTop: '0.25rem' }}>{risk.residualImpact}</div>
         </div>
       </div>
