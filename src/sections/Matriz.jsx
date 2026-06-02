@@ -32,13 +32,13 @@ const Matriz = ({ isDarkMode }) => {
       </div>
 
       <div style={{
-        background: 'white',
+        background: 'var(--bg-card)',
         borderRadius: '20px',
         padding: '2rem',
         overflowX: 'auto',
         marginBottom: '2rem',
         boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-        border: '1px solid #E5E7EB'
+        border: '1px solid var(--border-color)'
       }}>
         <div style={{
           display: 'grid',
@@ -53,9 +53,9 @@ const Matriz = ({ isDarkMode }) => {
               fontWeight: 700,
               textAlign: 'center',
               padding: '0.75rem 0.5rem',
-              color: '#6B7280',
+              color: 'var(--text-secondary)',
               fontSize: '0.8125rem',
-              background: '#F9FAFB',
+              background: 'var(--bg-hover)',
               borderRadius: '8px'
             }}>{label}</div>
           ))}
@@ -66,12 +66,12 @@ const Matriz = ({ isDarkMode }) => {
               <div key={`label-${p}`} style={{
                 fontWeight: 700,
                 padding: '0.75rem',
-                color: '#6B7280',
+                color: 'var(--text-secondary)',
                 fontSize: '0.8125rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'flex-end',
-                background: '#F9FAFB',
+                background: 'var(--bg-hover)',
                 borderRadius: '8px'
               }}>{probLabels[p]}</div>
               {[1, 2, 3, 4, 5].map(i => {
@@ -244,16 +244,16 @@ const Matriz = ({ isDarkMode }) => {
         gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
         gap: '1.5rem'
       }}>
-        <div style={{ 
-          background: 'white', 
-          borderRadius: '16px', 
+        <div style={{
+          background: 'var(--bg-card)',
+          borderRadius: '16px',
           padding: '1.5rem',
           boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-          border: '1px solid #E5E7EB'
+          border: '1px solid var(--border-color)'
         }}>
-          <h3 style={{ 
-            fontSize: '1.125rem', 
-            fontWeight: 700, 
+          <h3 style={{
+            fontSize: '1.125rem',
+            fontWeight: 700,
             marginBottom: '1rem',
             color: '#DC2626',
             display: 'flex',
@@ -267,23 +267,23 @@ const Matriz = ({ isDarkMode }) => {
               <li key={risk.id} style={{
                 padding: '1rem',
                 marginBottom: '0.75rem',
-                background: '#FEF2F2',
+                background: 'rgba(220, 38, 38, 0.1)',
                 borderRadius: '12px',
-                border: '1px solid #FECACA'
+                border: '1px solid rgba(220, 38, 38, 0.2)'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                  <span style={{ 
-                    color: '#DC2626', 
-                    fontFamily: 'monospace', 
+                  <span style={{
+                    color: '#DC2626',
+                    fontFamily: 'monospace',
                     fontWeight: 700,
-                    background: '#FEE2E2',
+                    background: 'rgba(220, 38, 38, 0.15)',
                     padding: '0.25rem 0.5rem',
                     borderRadius: '6px',
                     fontSize: '0.75rem'
                   }}>{risk.id}</span>
-                  <span style={{ color: '#111827', fontWeight: 600 }}>{risk.name}</span>
+                  <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{risk.name}</span>
                 </div>
-                <span style={{ color: '#6B7280', fontSize: '0.8125rem' }}>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '0.8125rem' }}>
                   Nivel: {risk.level} | Prob: {risk.probability} × Imp: {risk.impact}
                 </span>
               </li>
@@ -291,16 +291,16 @@ const Matriz = ({ isDarkMode }) => {
           </ul>
         </div>
 
-        <div style={{ 
-          background: 'white', 
-          borderRadius: '16px', 
+        <div style={{
+          background: 'var(--bg-card)',
+          borderRadius: '16px',
           padding: '1.5rem',
           boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-          border: '1px solid #E5E7EB'
+          border: '1px solid var(--border-color)'
         }}>
-          <h3 style={{ 
-            fontSize: '1.125rem', 
-            fontWeight: 700, 
+          <h3 style={{
+            fontSize: '1.125rem',
+            fontWeight: 700,
             marginBottom: '1rem',
             color: '#F97316',
             display: 'flex',
@@ -314,23 +314,23 @@ const Matriz = ({ isDarkMode }) => {
               <li key={risk.id} style={{
                 padding: '1rem',
                 marginBottom: '0.75rem',
-                background: '#FFEDD5',
+                background: 'rgba(249, 115, 22, 0.1)',
                 borderRadius: '12px',
-                border: '1px solid #FED7AA'
+                border: '1px solid rgba(249, 115, 22, 0.2)'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                  <span style={{ 
-                    color: '#F97316', 
-                    fontFamily: 'monospace', 
+                  <span style={{
+                    color: '#F97316',
+                    fontFamily: 'monospace',
                     fontWeight: 700,
-                    background: '#FFF7ED',
+                    background: 'rgba(249, 115, 22, 0.15)',
                     padding: '0.25rem 0.5rem',
                     borderRadius: '6px',
                     fontSize: '0.75rem'
                   }}>{risk.id}</span>
-                  <span style={{ color: '#111827', fontWeight: 600 }}>{risk.name}</span>
+                  <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{risk.name}</span>
                 </div>
-                <span style={{ color: '#6B7280', fontSize: '0.8125rem' }}>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '0.8125rem' }}>
                   Nivel: {risk.level} | Prob: {risk.probability} × Imp: {risk.impact}
                 </span>
               </li>

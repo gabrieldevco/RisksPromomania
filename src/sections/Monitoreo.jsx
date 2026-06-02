@@ -34,13 +34,13 @@ const Monitoreo = () => {
       </div>
 
       <div style={{
-        background: 'white',
+        background: 'var(--bg-card)',
         borderRadius: '20px',
         padding: '2rem',
         overflowX: 'auto',
         marginBottom: '2rem',
         boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-        border: '1px solid #E5E7EB'
+        border: '1px solid var(--border-color)'
       }}>
         <table style={{
           width: '100%',
@@ -53,13 +53,13 @@ const Monitoreo = () => {
                 <th key={header} style={{
                   textAlign: 'left',
                   padding: '1rem',
-                  color: '#6B7280',
+                  color: 'var(--text-secondary)',
                   fontWeight: 700,
                   textTransform: 'uppercase',
                   fontSize: '0.75rem',
                   letterSpacing: '0.05em',
-                  borderBottom: '2px solid #E5E7EB',
-                  background: '#F9FAFB'
+                  borderBottom: '2px solid var(--border-color)',
+                  background: 'var(--bg-hover)'
                 }}>{header}</th>
               ))}
             </tr>
@@ -71,15 +71,15 @@ const Monitoreo = () => {
               const zoneColor = getZoneColor(risk.zone);
 
               return (
-                <tr key={risk.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
+                <tr key={risk.id} style={{ borderBottom: '1px solid var(--border-color)' }}>
                   <td style={{
                     padding: '1rem',
                     fontFamily: 'monospace',
                     fontWeight: 700,
                     color: '#6B21A8'
                   }}>{risk.id}</td>
-                  <td style={{ padding: '1rem', color: '#111827', fontWeight: 500 }}>{risk.name}</td>
-                  <td style={{ padding: '1rem', color: '#6B7280', fontSize: '0.875rem' }}>{risk.indicator}</td>
+                  <td style={{ padding: '1rem', color: 'var(--text-primary)', fontWeight: 500 }}>{risk.name}</td>
+                  <td style={{ padding: '1rem', color: 'var(--text-secondary)', fontSize: '0.875rem' }}>{risk.indicator}</td>
                   <td style={{ padding: '1rem' }}>
                     <span style={{
                       display: 'inline-flex',
@@ -96,14 +96,14 @@ const Monitoreo = () => {
                       {freq}
                     </span>
                   </td>
-                  <td style={{ padding: '1rem', color: '#6B7280' }}>{risk.responsible}</td>
+                  <td style={{ padding: '1rem', color: 'var(--text-secondary)' }}>{risk.responsible}</td>
                   <td style={{ padding: '1rem' }}>
                     <span style={{
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.5rem',
                       padding: '0.5rem 0.75rem',
-                      background: nextReview === 'Automático' ? '#D1FAE5' : '#F3E8FF',
+                      background: nextReview === 'Automático' ? 'rgba(22, 163, 74, 0.15)' : 'rgba(107, 33, 168, 0.15)',
                       borderRadius: '8px',
                       color: nextReview === 'Automático' ? '#16A34A' : '#6B21A8',
                       fontWeight: 600,
@@ -131,12 +131,12 @@ const Monitoreo = () => {
           { icon: Clock, color: '#6B21A8', title: 'Revisión Mensual', items: ['Métricas de negocio', 'Retención de talento', 'Nuevos riesgos'] },
           { icon: Clock, color: '#7C3AED', title: 'Revisión Trimestral', items: ['Auditoría de seguridad', 'Cumplimiento normativo', 'Actualización del plan'] }
         ].map((section, i) => (
-          <div key={i} style={{ 
-            background: 'white', 
-            borderRadius: '16px', 
+          <div key={i} style={{
+            background: 'var(--bg-card)',
+            borderRadius: '16px',
             padding: '1.5rem',
             boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-            border: '1px solid #E5E7EB'
+            border: '1px solid var(--border-color)'
           }}>
             <h3 style={{
               fontSize: '1rem',
@@ -150,7 +150,7 @@ const Monitoreo = () => {
               <section.icon size={20} />
               {section.title}
             </h3>
-            <ul style={{ color: '#4B5563', fontSize: '0.9375rem', lineHeight: 1.8, paddingLeft: '1.5rem', margin: 0 }}>
+            <ul style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem', lineHeight: 1.8, paddingLeft: '1.5rem', margin: 0 }}>
               {section.items.map((item, j) => (
                 <li key={j}>{item}</li>
               ))}

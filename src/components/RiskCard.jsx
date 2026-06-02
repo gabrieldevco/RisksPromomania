@@ -11,11 +11,11 @@ const RiskCard = ({ risk, onControlChange }) => {
   const displayColor = getZoneColor(displayZone);
 
   return (
-    <div 
+    <div
       className="risk-card"
       style={{
-        background: 'white',
-        border: '1px solid #E5E7EB',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-color)',
         borderRadius: '16px',
         padding: '1.5rem',
         position: 'relative',
@@ -64,7 +64,7 @@ const RiskCard = ({ risk, onControlChange }) => {
           <h3 style={{
             fontSize: '1.125rem',
             fontWeight: 700,
-            color: '#111827',
+            color: 'var(--text-primary)',
             marginBottom: '0.5rem'
           }}>{risk.name}</h3>
         </div>
@@ -89,7 +89,7 @@ const RiskCard = ({ risk, onControlChange }) => {
       </div>
 
       <p style={{
-        color: '#6B7280',
+        color: 'var(--text-secondary)',
         fontSize: '0.9375rem',
         lineHeight: 1.6,
         marginBottom: '1rem'
@@ -102,12 +102,12 @@ const RiskCard = ({ risk, onControlChange }) => {
         gap: '1rem',
         marginTop: '1rem',
         paddingTop: '1rem',
-        borderTop: '1px solid #F3F4F6'
+        borderTop: '1px solid var(--border-color)'
       }}>
-        <div style={{ 
+        <div style={{
           textAlign: 'center',
           padding: '0.75rem',
-          background: '#F9FAFB',
+          background: 'var(--bg-hover)',
           borderRadius: '10px'
         }}>
           <div style={{
@@ -117,38 +117,38 @@ const RiskCard = ({ risk, onControlChange }) => {
           }}>{risk.probability}</div>
           <div style={{
             fontSize: '0.6875rem',
-            color: '#9CA3AF',
+            color: 'var(--text-muted)',
             textTransform: 'uppercase',
             letterSpacing: '0.05em',
             fontWeight: 600,
             marginTop: '0.25rem'
           }}>Probabilidad</div>
         </div>
-        <div style={{ 
+        <div style={{
           textAlign: 'center',
           padding: '0.75rem',
-          background: '#F9FAFB',
+          background: 'var(--bg-hover)',
           borderRadius: '10px'
         }}>
           <div style={{
             fontSize: '1.25rem',
             fontWeight: 800,
-            color: hasControl ? '#9CA3AF' : '#6B21A8',
+            color: hasControl ? 'var(--text-muted)' : '#6B21A8',
             textDecoration: hasControl ? 'line-through' : 'none'
           }}>{risk.impact}</div>
           <div style={{
             fontSize: '0.6875rem',
-            color: '#9CA3AF',
+            color: 'var(--text-muted)',
             textTransform: 'uppercase',
             letterSpacing: '0.05em',
             fontWeight: 600,
             marginTop: '0.25rem'
           }}>Impacto</div>
         </div>
-        <div style={{ 
+        <div style={{
           textAlign: 'center',
           padding: '0.75rem',
-          background: '#F9FAFB',
+          background: 'var(--bg-hover)',
           borderRadius: '10px'
         }}>
           <div style={{
@@ -159,7 +159,7 @@ const RiskCard = ({ risk, onControlChange }) => {
           }}>{risk.level}</div>
           <div style={{
             fontSize: '0.6875rem',
-            color: '#9CA3AF',
+            color: 'var(--text-muted)',
             textTransform: 'uppercase',
             letterSpacing: '0.05em',
             fontWeight: 600,
