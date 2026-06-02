@@ -284,6 +284,65 @@ export const getZoneColor = (zone) => {
   return colors[zone] || '#6b7280';
 };
 
+// ============================================
+// SISTEMA DE CONTROLES DINÁMICO (1-5)
+// ============================================
+
+// Niveles de control y sus etiquetas
+export const controlLevels = {
+  1: { label: 'Nunca', description: 'No se aplican controles', effectiveness: 1.0 },
+  2: { label: 'Rara vez', description: 'Controles aplicados esporádicamente', effectiveness: 0.8 },
+  3: { label: 'Ocasionalmente', description: 'Controles aplicados a veces', effectiveness: 0.6 },
+  4: { label: 'Frecuentemente', description: 'Controles aplicados regularmente', effectiveness: 0.4 },
+  5: { label: 'Siempre', description: 'Controles aplicados consistentemente', effectiveness: 0.2 }
+};
+
+// Obtener etiqueta del nivel de control
+export const getControlLabel = (level) => {
+  return controlLevels[level]?.label || 'Nunca';
+};
+
+// Calcular impacto residual basado en el nivel de control
+export const calculateResidualImpact = (originalImpact, controlLevel) => {
+  const effectiveness = controlLevels[controlLevel]?.effectiveness || 1.0;
+  const residualImpact = Math.max(1, Math.round(originalImpact * effectiveness));
+  return residualImpact;
+};
+
+// Calcular nivel de riesgo residual
+export const calculateResidualLevel = (probability, residualImpact) => {
+  return probability * residualImpact;
+};
+
+// Obtener estado de mitigación comparando riesgo original vs residual
+export const getMitigationStatus = (originalLevel, residualLevel) => {
+  const reduction = ((originalLevel - residualLevel) / originalLevel) * 100;
+  
+  if (reduction >= 50) return { status: 'exitosamente', color: '#16a34a', reduction };
+  if (reduction >= 25) return { status: 'parcialmente', color: '#ca8a04', reduction };
+  if (reduction > 0) return { status: 'mínimamente', color: '#ea580c', reduction };
+  return { status: 'sin mitigar', color: '#dc2626', reduction: 0 };
+};
+
+// Crear riesgo con valores iniciales de control
+export const createRiskWithControl = (risk, controlLevel = 1) => ({
+  ...risk,
+  controlLevel,
+  residualImpact: calculateResidualImpact(risk.impact, controlLevel),
+  residualLevel: calculateResidualLevel(risk.probability, calculateResidualImpact(risk.impact, controlLevel)),
+  residualZone: getRiskZone(calculateResidualLevel(risk.probability, calculateResidualImpact(risk.impact, controlLevel)))
+});
+
+// Inicializar riesgos con control = 1 (Nunca)
+export const initializeRisksWithControl = () => {
+  return risks.map(risk => createRiskWithControl(risk, 1));
+};
+
+// Actualizar nivel de control de un riesgo
+export const updateRiskControlLevel = (risk, newControlLevel) => {
+  return createRiskWithControl(risk, newControlLevel);
+};
+
 // Estadísticas
 export const riskStats = {
   total: risks.length,
