@@ -1,6 +1,9 @@
-import { Flame, BarChart3, Shield, Grid3X3, FileText, Activity, Sun, LogIn, UserPlus } from 'lucide-react';
+import { Flame, BarChart3, Shield, Grid3X3, FileText, Activity, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../hooks/useTheme';
 
 const Navbar = ({ activeSection, setActiveSection }) => {
+  const { isDarkMode, toggleTheme } = useTheme();
+
   const navItems = [
     { id: 'dashboard', label: 'Inicio', icon: BarChart3 },
     { id: 'riesgos', label: 'Riesgos', icon: Shield },
@@ -15,9 +18,9 @@ const Navbar = ({ activeSection, setActiveSection }) => {
       top: 0,
       left: 0,
       right: 0,
-      background: 'rgba(255, 255, 255, 0.98)',
+      background: isDarkMode ? 'rgba(17, 24, 39, 0.98)' : 'rgba(255, 255, 255, 0.98)',
       backdropFilter: 'blur(10px)',
-      borderBottom: '1px solid #E5E7EB',
+      borderBottom: `1px solid ${isDarkMode ? '#374151' : '#E5E7EB'}`,
       zIndex: 1000,
       padding: '0 2rem'
     }}>
@@ -52,7 +55,7 @@ const Navbar = ({ activeSection, setActiveSection }) => {
           }}>
             <Flame size={24} color="white" />
           </div>
-          <span style={{ color: '#111827' }}>Promomania</span>
+          <span style={{ color: isDarkMode ? '#F9FAFB' : '#111827' }}>Promomania</span>
         </div>
 
         {/* Navigation Links */}
@@ -67,8 +70,12 @@ const Navbar = ({ activeSection, setActiveSection }) => {
               <button
                 onClick={() => setActiveSection(item.id)}
                 style={{
-                  color: activeSection === item.id ? '#6B21A8' : '#4B5563',
-                  background: activeSection === item.id ? 'rgba(107, 33, 168, 0.1)' : 'transparent',
+                  color: activeSection === item.id 
+                    ? '#6B21A8' 
+                    : (isDarkMode ? '#D1D5DB' : '#4B5563'),
+                  background: activeSection === item.id 
+                    ? 'rgba(107, 33, 168, 0.1)' 
+                    : 'transparent',
                   border: 'none',
                   fontWeight: 500,
                   padding: '0.5rem 1rem',
@@ -86,7 +93,7 @@ const Navbar = ({ activeSection, setActiveSection }) => {
                 }}
                 onMouseLeave={(e) => {
                   if (activeSection !== item.id) {
-                    e.target.style.color = '#4B5563';
+                    e.target.style.color = isDarkMode ? '#D1D5DB' : '#4B5563';
                     e.target.style.background = 'transparent';
                   }
                 }}
@@ -96,54 +103,25 @@ const Navbar = ({ activeSection, setActiveSection }) => {
             </li>
           ))}
           
-          {/* Theme Toggle */}
+          {/* Theme Toggle - Funcional */}
           <li>
-            <button style={{
-              background: 'transparent',
-              border: 'none',
-              padding: '0.5rem',
-              cursor: 'pointer',
-              color: '#6B7280'
-            }}>
-              <Sun size={20} />
-            </button>
-          </li>
-          
-          {/* Login Button */}
-          <li>
-            <button style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              color: '#6B21A8',
-              background: 'transparent',
-              border: 'none',
-              fontWeight: 500,
-              padding: '0.5rem 1rem',
-              cursor: 'pointer'
-            }}>
-              <LogIn size={18} />
-              Iniciar sesión
-            </button>
-          </li>
-          
-          {/* Register Button */}
-          <li>
-            <button style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              background: 'linear-gradient(135deg, #F97316, #FB923C)',
-              color: 'white',
-              border: 'none',
-              fontWeight: 600,
-              padding: '0.625rem 1.25rem',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}>
-              <UserPlus size={18} />
-              Registrarse
+            <button 
+              onClick={toggleTheme}
+              title={isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+              style={{
+                background: isDarkMode ? '#374151' : '#F3F4F6',
+                border: 'none',
+                padding: '0.5rem',
+                cursor: 'pointer',
+                color: isDarkMode ? '#FBBF24' : '#F97316',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s ease'
+              }}
+            >
+              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
           </li>
         </ul>

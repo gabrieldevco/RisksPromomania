@@ -5,29 +5,32 @@ import Riesgos from './sections/Riesgos';
 import Matriz from './sections/Matriz';
 import Respuesta from './sections/Respuesta';
 import Monitoreo from './sections/Monitoreo';
+import { ThemeProvider } from './context/ThemeContext';
+import { useTheme } from './hooks/useTheme';
 
-const App = () => {
+const AppContent = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
+  const { isDarkMode, themeColors } = useTheme();
 
   const renderSection = () => {
     switch (activeSection) {
       case 'dashboard':
-        return <Dashboard setActiveSection={setActiveSection} />;
+        return <Dashboard setActiveSection={setActiveSection} isDarkMode={isDarkMode} />;
       case 'riesgos':
-        return <Riesgos />;
+        return <Riesgos isDarkMode={isDarkMode} />;
       case 'matriz':
-        return <Matriz />;
+        return <Matriz isDarkMode={isDarkMode} />;
       case 'respuesta':
-        return <Respuesta />;
+        return <Respuesta isDarkMode={isDarkMode} />;
       case 'monitoreo':
-        return <Monitoreo />;
+        return <Monitoreo isDarkMode={isDarkMode} />;
       default:
-        return <Dashboard setActiveSection={setActiveSection} />;
+        return <Dashboard setActiveSection={setActiveSection} isDarkMode={isDarkMode} />;
     }
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#FFFFFF' }}>
+    <div style={{ minHeight: '100vh', background: themeColors.bg, transition: 'background 0.3s ease' }}>
       <Navbar activeSection={activeSection} setActiveSection={setActiveSection} />
       
       <main style={{
@@ -110,6 +113,14 @@ const App = () => {
         </div>
       </footer>
     </div>
+  );
+};
+
+const App = () => {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 };
 
