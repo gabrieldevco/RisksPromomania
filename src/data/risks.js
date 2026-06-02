@@ -48,7 +48,7 @@ export const risks = [
     id: 'R03',
     name: 'Baja adopción de usuarios',
     category: 'Mercado',
-    description: 'Poca participación de comerciantes para publicar promociones y/o bajo interés de clientes potenciales en usar la plataforma.',
+    description: 'Poca participación de comerciantes para publicar promociones y/o bajo interés de clientes potenciales en usar la plataforma, incumpliendo el objetivo SMART de alcanzar 1,000 usuarios registrados durante el primer mes de funcionamiento en 5 ciudades principales de Colombia.',
     probability: 3,
     impact: 4,
     frequency: 'Continua',
@@ -58,10 +58,11 @@ export const risks = [
     responsible: 'CMO / Growth Hacker',
     indicator: 'Tasa de conversión de visitantes a usuarios registrados',
     actions: [
-      'Campaña de marketing digital segmentada',
+      'Campaña de marketing digital segmentada por ciudad',
       'Programa de referidos con incentivos',
-      'Alianzas estratégicas con cámaras de comercio',
-      'Onboarding simplificado y tutoriales'
+      'Alianzas estratégicas con cámaras de comercio locales',
+      'Onboarding simplificado y tutoriales',
+      'Lanzamiento progresivo en las 5 ciudades objetivo'
     ]
   },
   {
@@ -148,20 +149,21 @@ export const risks = [
     id: 'R08',
     name: 'Retrasos en desarrollo',
     category: 'Proyecto',
-    description: 'El equipo de desarrollo no cumple con los plazos establecidos, afectando el lanzamiento y hitos del proyecto.',
+    description: 'El equipo de desarrollo (Armando Pérez, Harlem Hernández, Georgy Muñoz, Gabriel Padilla) no cumple con los plazos establecidos dentro de los 4 meses de ejecución, afectando el lanzamiento previsto para el 30 de noviembre de 2026.',
     probability: 3,
     impact: 2,
     frequency: 'Regular',
     level: 6,
     zone: 'medium',
     strategy: 'Mitigar',
-    responsible: 'Gerente de Proyecto / Scrum Master',
-    indicator: '% de avance vs plan de sprints',
+    responsible: 'Director del Proyecto (Armando Pérez)',
+    indicator: '% de avance vs plan de sprints y entregables mensuales',
     actions: [
-      'Metodología ágil con sprints cortos',
-      'Gestión activa del backlog',
-      'Identificación temprana de bloqueos',
-      'Plan de contingencia con recursos adicionales'
+      'Metodología ágil con sprints de 2 semanas',
+      'Gestión activa del backlog y daily standups',
+      'Identificación temprana de bloqueos y riesgos técnicos',
+      'Plan de contingencia con horas extra o recursos externos',
+      'Revisión semanal del cronograma contra hitos (Planeación, Diseño, Desarrollo, Pruebas, Despliegue)'
     ]
   },
   {
@@ -226,22 +228,23 @@ export const risks = [
   },
   {
     id: 'R12',
-    name: 'Problemas de monetización',
+    name: 'Sostenibilidad financiera',
     category: 'Financiero',
-    description: 'El modelo de negocio no genera ingresos suficientes para sostener operaciones y crecimiento de la plataforma.',
+    description: 'Los ingresos por publicidad/comisiones no son suficientes para cubrir los costos operativos mensuales del proyecto ($326,614,600 COP anuales en nómina y servicios), poniendo en riesgo la viabilidad del emprendimiento tras el agotamiento del presupuesto inicial de $593,408,360 COP.',
     probability: 3,
     impact: 4,
     frequency: 'Continua',
     level: 12,
     zone: 'high',
     strategy: 'Mitigar',
-    responsible: 'CEO / CFO',
-    indicator: 'MRR (Monthly Recurring Revenue) y CAC Payback Period',
+    responsible: 'Director del Proyecto / Asesor Financiero',
+    indicator: 'Burn rate mensual vs ingresos generados',
     actions: [
-      'Modelo freemium con características premium',
-      'Diversificación de fuentes de ingresos (suscripciones, publicidad, comisiones)',
-      'Análisis de cohortes y LTV/CAC',
-      'Experimentación continua de precios'
+      'Modelo de publicidad segmentada para comercios locales',
+      'Comisiones por publicaciones destacadas de promociones',
+      'Monitoreo mensual del burn rate y runway financiero',
+      'Plan de contingencia para reducción de costos operativos',
+      'Búsqueda de inversión adicional o ronda de financiamiento'
     ]
   }
 ];
