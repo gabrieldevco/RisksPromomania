@@ -47,40 +47,46 @@ const Riesgos = () => {
   ).length;
 
   return (
-    <div>
+    <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem 3rem' }}>
+      {/* Header */}
       <div className="section-header">
-        <h1>Identificación de Riesgos</h1>
-        <p>FASE 1: 12 riesgos identificados con controles dinámicos para mitigación</p>
+        <h1>Identificación de <span>Riesgos</span></h1>
+        <p>FASE 1: 12 riesgos identificados con sistema de controles dinámicos para mitigación</p>
       </div>
 
       {/* Resumen de mitigación */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(14, 165, 233, 0.1))',
-        borderRadius: '12px',
-        padding: '1.5rem',
+        background: 'linear-gradient(135deg, #F3E8FF, #EDE9FE)',
+        borderRadius: '20px',
+        padding: '2rem',
         marginBottom: '2rem',
-        border: '1px solid rgba(99, 102, 241, 0.3)'
+        border: '1px solid #DDD6FE'
       }}>
-        <h3 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: '1rem', color: '#f8fafc' }}>
-          Sistema de Controles Dinámico (1-5)
+        <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1.5rem', color: '#6B21A8', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <span style={{ background: '#6B21A8', color: 'white', padding: '4px 12px', borderRadius: '8px', fontSize: '0.875rem' }}>
+            1-5
+          </span>
+          Sistema de Controles Dinámico
         </h3>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
           gap: '1rem',
-          marginBottom: '1rem'
+          marginBottom: '1.5rem'
         }}>
           {Object.entries(controlLevels).map(([level, data]) => (
             <div key={level} style={{
-              background: 'rgba(30, 41, 59, 0.5)',
-              borderRadius: '8px',
-              padding: '0.75rem',
-              textAlign: 'center'
+              background: 'white',
+              borderRadius: '12px',
+              padding: '1rem',
+              textAlign: 'center',
+              border: '1px solid #E5E7EB',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
             }}>
-              <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#6366f1' }}>{level}</div>
-              <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#f8fafc' }}>{data.label}</div>
-              <div style={{ fontSize: '0.625rem', color: '#94a3b8', marginTop: '0.25rem' }}>
-                Efectividad: {((1 - data.effectiveness) * 100).toFixed(0)}%
+              <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#6B21A8' }}>{level}</div>
+              <div style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#111827', marginTop: '0.25rem' }}>{data.label}</div>
+              <div style={{ fontSize: '0.6875rem', color: '#6B7280', marginTop: '0.25rem' }}>
+                {((1 - data.effectiveness) * 100).toFixed(0)}% efectivo
               </div>
             </div>
           ))}
@@ -89,23 +95,23 @@ const Riesgos = () => {
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: '1rem',
-          marginTop: '1rem',
-          paddingTop: '1rem',
-          borderTop: '1px solid rgba(71, 85, 105, 0.5)'
+          marginTop: '1.5rem',
+          paddingTop: '1.5rem',
+          borderTop: '1px solid #DDD6FE'
         }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#6366f1' }}>{mitigatedCount}</div>
-            <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Riesgos con controles</div>
+          <div style={{ textAlign: 'center', background: 'white', padding: '1rem', borderRadius: '12px' }}>
+            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#6B21A8' }}>{mitigatedCount}</div>
+            <div style={{ fontSize: '0.8125rem', color: '#6B7280', fontWeight: 500 }}>Con controles</div>
           </div>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#16a34a' }}>{improvedCount}</div>
-            <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Riesgos mejorados</div>
+          <div style={{ textAlign: 'center', background: 'white', padding: '1rem', borderRadius: '12px' }}>
+            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#16A34A' }}>{improvedCount}</div>
+            <div style={{ fontSize: '0.8125rem', color: '#6B7280', fontWeight: 500 }}>Mejorados</div>
           </div>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#ca8a04' }}>
+          <div style={{ textAlign: 'center', background: 'white', padding: '1rem', borderRadius: '12px' }}>
+            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#DC2626' }}>
               {risksWithControl.filter(r => r.residualZone === 'critical').length}
             </div>
-            <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Críticos residuales</div>
+            <div style={{ fontSize: '0.8125rem', color: '#6B7280', fontWeight: 500 }}>Críticos residuales</div>
           </div>
         </div>
       </div>
@@ -114,11 +120,8 @@ const Riesgos = () => {
       <div style={{
         display: 'flex',
         flexWrap: 'wrap',
-        gap: '1rem',
-        marginBottom: '2rem',
-        padding: '1.5rem',
-        background: '#334155',
-        borderRadius: '12px'
+        gap: '0.75rem',
+        marginBottom: '2rem'
       }}>
         {filters.map(f => (
           <button
@@ -126,13 +129,14 @@ const Riesgos = () => {
             onClick={() => setFilter(f.id)}
             style={{
               padding: '0.625rem 1.25rem',
-              border: '1px solid #475569',
-              borderRadius: '8px',
-              background: filter === f.id ? '#6366f1' : '#1e293b',
-              color: filter === f.id ? 'white' : '#94a3b8',
-              fontWeight: 500,
+              border: filter === f.id ? '2px solid #6B21A8' : '1px solid #E5E7EB',
+              borderRadius: '10px',
+              background: filter === f.id ? '#6B21A8' : 'white',
+              color: filter === f.id ? 'white' : '#4B5563',
+              fontWeight: 600,
               cursor: 'pointer',
-              transition: 'all 0.3s ease'
+              transition: 'all 0.3s ease',
+              boxShadow: filter === f.id ? '0 4px 12px rgba(107, 33, 168, 0.2)' : '0 2px 4px rgba(0,0,0,0.05)'
             }}
           >
             {f.label}
@@ -153,56 +157,57 @@ const Riesgos = () => {
 
       {/* Leyenda */}
       <div style={{
-        background: '#334155',
-        borderRadius: '12px',
-        padding: '1.5rem',
-        marginTop: '2rem'
+        background: '#F9FAFB',
+        borderRadius: '20px',
+        padding: '2rem',
+        marginTop: '3rem',
+        border: '1px solid #E5E7EB'
       }}>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1rem' }}>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1.5rem', color: '#111827' }}>
           Leyenda de Evaluación
         </h2>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '1rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: '1.5rem'
         }}>
-          <div>
-            <h4 style={{ fontSize: '0.875rem', color: '#6366f1', marginBottom: '0.5rem' }}>Probabilidad (1-5)</h4>
-            <ul style={{ fontSize: '0.875rem', color: '#cbd5e1', lineHeight: 1.6, listStyle: 'none', padding: 0 }}>
-              <li>1 - Muy Baja</li>
-              <li>2 - Baja</li>
-              <li>3 - Media</li>
-              <li>4 - Alta</li>
-              <li>5 - Muy Alta</li>
+          <div style={{ background: 'white', padding: '1.25rem', borderRadius: '12px', border: '1px solid #E5E7EB' }}>
+            <h4 style={{ fontSize: '0.9375rem', color: '#6B21A8', marginBottom: '0.75rem', fontWeight: 700 }}>Probabilidad (1-5)</h4>
+            <ul style={{ fontSize: '0.875rem', color: '#4B5563', lineHeight: 1.8, listStyle: 'none', padding: 0 }}>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>1</span><span style={{ color: '#9CA3AF' }}>Muy Baja</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>2</span><span style={{ color: '#9CA3AF' }}>Baja</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>3</span><span style={{ color: '#9CA3AF' }}>Media</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>4</span><span style={{ color: '#9CA3AF' }}>Alta</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>5</span><span style={{ color: '#9CA3AF' }}>Muy Alta</span></li>
             </ul>
           </div>
-          <div>
-            <h4 style={{ fontSize: '0.875rem', color: '#6366f1', marginBottom: '0.5rem' }}>Impacto Original (1-5)</h4>
-            <ul style={{ fontSize: '0.875rem', color: '#cbd5e1', lineHeight: 1.6, listStyle: 'none', padding: 0 }}>
-              <li>1 - Insignificante</li>
-              <li>2 - Menor</li>
-              <li>3 - Moderado</li>
-              <li>4 - Mayor</li>
-              <li>5 - Catastrófico</li>
+          <div style={{ background: 'white', padding: '1.25rem', borderRadius: '12px', border: '1px solid #E5E7EB' }}>
+            <h4 style={{ fontSize: '0.9375rem', color: '#6B21A8', marginBottom: '0.75rem', fontWeight: 700 }}>Impacto (1-5)</h4>
+            <ul style={{ fontSize: '0.875rem', color: '#4B5563', lineHeight: 1.8, listStyle: 'none', padding: 0 }}>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>1</span><span style={{ color: '#9CA3AF' }}>Insignificante</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>2</span><span style={{ color: '#9CA3AF' }}>Menor</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>3</span><span style={{ color: '#9CA3AF' }}>Moderado</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>4</span><span style={{ color: '#9CA3AF' }}>Mayor</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>5</span><span style={{ color: '#9CA3AF' }}>Catastrófico</span></li>
             </ul>
           </div>
-          <div>
-            <h4 style={{ fontSize: '0.875rem', color: '#6366f1', marginBottom: '0.5rem' }}>Nivel de Control (1-5)</h4>
-            <ul style={{ fontSize: '0.875rem', color: '#cbd5e1', lineHeight: 1.6, listStyle: 'none', padding: 0 }}>
-              <li>1 - Nunca (0% efectivo)</li>
-              <li>2 - Rara vez (20%)</li>
-              <li>3 - Ocasionalmente (40%)</li>
-              <li>4 - Frecuentemente (60%)</li>
-              <li>5 - Siempre (80%)</li>
+          <div style={{ background: 'white', padding: '1.25rem', borderRadius: '12px', border: '1px solid #E5E7EB' }}>
+            <h4 style={{ fontSize: '0.9375rem', color: '#6B21A8', marginBottom: '0.75rem', fontWeight: 700 }}>Control (1-5)</h4>
+            <ul style={{ fontSize: '0.875rem', color: '#4B5563', lineHeight: 1.8, listStyle: 'none', padding: 0 }}>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>1</span><span style={{ color: '#9CA3AF' }}>Nunca (0%)</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>2</span><span style={{ color: '#9CA3AF' }}>Rara vez (20%)</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>3</span><span style={{ color: '#9CA3AF' }}>Ocasional (40%)</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>4</span><span style={{ color: '#9CA3AF' }}>Frecuente (60%)</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>5</span><span style={{ color: '#9CA3AF' }}>Siempre (80%)</span></li>
             </ul>
           </div>
-          <div>
-            <h4 style={{ fontSize: '0.875rem', color: '#6366f1', marginBottom: '0.5rem' }}>Zonas de Riesgo</h4>
-            <ul style={{ fontSize: '0.875rem', color: '#cbd5e1', lineHeight: 1.6, listStyle: 'none', padding: 0 }}>
-              <li>{getZoneLabel('low')} (1-4)</li>
-              <li>{getZoneLabel('medium')} (5-9)</li>
-              <li>{getZoneLabel('high')} (10-16)</li>
-              <li>{getZoneLabel('critical')} (17-25)</li>
+          <div style={{ background: 'white', padding: '1.25rem', borderRadius: '12px', border: '1px solid #E5E7EB' }}>
+            <h4 style={{ fontSize: '0.9375rem', color: '#6B21A8', marginBottom: '0.75rem', fontWeight: 700 }}>Zonas de Riesgo</h4>
+            <ul style={{ fontSize: '0.875rem', color: '#4B5563', lineHeight: 1.8, listStyle: 'none', padding: 0 }}>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>{getZoneLabel('low')}</span><span style={{ color: '#9CA3AF' }}>1-4</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>{getZoneLabel('medium')}</span><span style={{ color: '#9CA3AF' }}>5-9</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>{getZoneLabel('high')}</span><span style={{ color: '#9CA3AF' }}>10-16</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>{getZoneLabel('critical')}</span><span style={{ color: '#9CA3AF' }}>17-25</span></li>
             </ul>
           </div>
         </div>

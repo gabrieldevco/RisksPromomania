@@ -22,34 +22,38 @@ const Matriz = () => {
   const highRisks = risks.filter(r => r.zone === 'high');
 
   return (
-    <div>
+    <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem 3rem' }}>
       <div className="section-header">
-        <h1>Matriz de Riesgos</h1>
+        <h1>Matriz de <span>Riesgos</span></h1>
         <p>FASE 2 y 3: Análisis cualitativo y matriz de probabilidad vs impacto</p>
       </div>
 
       <div style={{
-        background: '#334155',
-        borderRadius: '12px',
-        padding: '1.5rem',
+        background: 'white',
+        borderRadius: '20px',
+        padding: '2rem',
         overflowX: 'auto',
-        marginBottom: '2rem'
+        marginBottom: '2rem',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+        border: '1px solid #E5E7EB'
       }}>
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'auto repeat(5, 1fr)',
-          gap: '4px',
+          gap: '8px',
           minWidth: '600px'
         }}>
           {/* Header */}
           <div></div>
           {impLabels.slice(1).map((label, i) => (
             <div key={i} style={{
-              fontWeight: 600,
+              fontWeight: 700,
               textAlign: 'center',
-              padding: '0.5rem',
-              color: '#94a3b8',
-              fontSize: '0.875rem'
+              padding: '0.75rem 0.5rem',
+              color: '#6B7280',
+              fontSize: '0.8125rem',
+              background: '#F9FAFB',
+              borderRadius: '8px'
             }}>{label}</div>
           ))}
 
@@ -57,13 +61,15 @@ const Matriz = () => {
           {[5, 4, 3, 2, 1].map(p => (
             <>
               <div key={`label-${p}`} style={{
-                fontWeight: 600,
-                padding: '0.5rem',
-                color: '#94a3b8',
-                fontSize: '0.875rem',
+                fontWeight: 700,
+                padding: '0.75rem',
+                color: '#6B7280',
+                fontSize: '0.8125rem',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'flex-end'
+                justifyContent: 'flex-end',
+                background: '#F9FAFB',
+                borderRadius: '8px'
               }}>{probLabels[p]}</div>
               {[1, 2, 3, 4, 5].map(i => {
                 const cellRisks = matrix[p][i];
@@ -81,27 +87,29 @@ const Matriz = () => {
                       flexDirection: 'column',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      borderRadius: '8px',
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      background: `${zoneColor}30`,
+                      borderRadius: '12px',
+                      fontSize: '0.8125rem',
+                      fontWeight: 800,
+                      background: `${zoneColor}15`,
                       color: zoneColor,
-                      border: `1px solid ${zoneColor}`,
+                      border: `2px solid ${zoneColor}`,
                       cursor: 'pointer',
                       transition: 'all 0.3s ease'
                     }}
                     onMouseEnter={(e) => {
                       e.target.style.transform = 'scale(1.05)';
                       e.target.style.zIndex = 10;
+                      e.target.style.boxShadow = `0 4px 20px ${zoneColor}40`;
                     }}
                     onMouseLeave={(e) => {
                       e.target.style.transform = 'scale(1)';
                       e.target.style.zIndex = 1;
+                      e.target.style.boxShadow = 'none';
                     }}
                   >
-                    <span>{level}</span>
+                    <span style={{ fontSize: '1.25rem' }}>{level}</span>
                     {riskIds && (
-                      <span style={{ fontSize: '0.625rem', fontWeight: 500, marginTop: '2px' }}>
+                      <span style={{ fontSize: '0.625rem', fontWeight: 600, marginTop: '2px' }}>
                         {riskIds}
                       </span>
                     )}
@@ -115,30 +123,49 @@ const Matriz = () => {
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
         gap: '1.5rem'
       }}>
-        <div style={{ background: '#334155', borderRadius: '12px', padding: '1.5rem' }}>
+        <div style={{ 
+          background: 'white', 
+          borderRadius: '16px', 
+          padding: '1.5rem',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+          border: '1px solid #E5E7EB'
+        }}>
           <h3 style={{ 
             fontSize: '1.125rem', 
-            fontWeight: 600, 
+            fontWeight: 700, 
             marginBottom: '1rem',
-            color: '#dc2626'
+            color: '#DC2626',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem'
           }}>
-            🔴 Riesgos Críticos (Atención Inmediata)
+            <span style={{ fontSize: '1.25rem' }}>🔴</span> Riesgos Críticos
           </h3>
           <ul style={{ listStyle: 'none', padding: 0 }}>
             {criticalRisks.map(risk => (
               <li key={risk.id} style={{
-                padding: '0.75rem',
-                marginBottom: '0.5rem',
-                background: 'rgba(220, 38, 38, 0.1)',
-                borderRadius: '8px',
-                borderLeft: '3px solid #dc2626'
+                padding: '1rem',
+                marginBottom: '0.75rem',
+                background: '#FEF2F2',
+                borderRadius: '12px',
+                border: '1px solid #FECACA'
               }}>
-                <strong style={{ color: '#fca5a5', fontFamily: 'monospace' }}>{risk.id}</strong>
-                <span style={{ color: '#cbd5e1', marginLeft: '0.5rem' }}>{risk.name}</span>
-                <span style={{ color: '#94a3b8', fontSize: '0.875rem', display: 'block', marginTop: '0.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                  <span style={{ 
+                    color: '#DC2626', 
+                    fontFamily: 'monospace', 
+                    fontWeight: 700,
+                    background: '#FEE2E2',
+                    padding: '0.25rem 0.5rem',
+                    borderRadius: '6px',
+                    fontSize: '0.75rem'
+                  }}>{risk.id}</span>
+                  <span style={{ color: '#111827', fontWeight: 600 }}>{risk.name}</span>
+                </div>
+                <span style={{ color: '#6B7280', fontSize: '0.8125rem' }}>
                   Nivel: {risk.level} | Prob: {risk.probability} × Imp: {risk.impact}
                 </span>
               </li>
@@ -146,27 +173,46 @@ const Matriz = () => {
           </ul>
         </div>
 
-        <div style={{ background: '#334155', borderRadius: '12px', padding: '1.5rem' }}>
+        <div style={{ 
+          background: 'white', 
+          borderRadius: '16px', 
+          padding: '1.5rem',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+          border: '1px solid #E5E7EB'
+        }}>
           <h3 style={{ 
             fontSize: '1.125rem', 
-            fontWeight: 600, 
+            fontWeight: 700, 
             marginBottom: '1rem',
-            color: '#ea580c'
+            color: '#F97316',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem'
           }}>
-            🟠 Riesgos Altos (Plan de Respuesta)
+            <span style={{ fontSize: '1.25rem' }}>🟠</span> Riesgos Altos
           </h3>
           <ul style={{ listStyle: 'none', padding: 0 }}>
             {highRisks.map(risk => (
               <li key={risk.id} style={{
-                padding: '0.75rem',
-                marginBottom: '0.5rem',
-                background: 'rgba(234, 88, 12, 0.1)',
-                borderRadius: '8px',
-                borderLeft: '3px solid #ea580c'
+                padding: '1rem',
+                marginBottom: '0.75rem',
+                background: '#FFEDD5',
+                borderRadius: '12px',
+                border: '1px solid #FED7AA'
               }}>
-                <strong style={{ color: '#fdba74', fontFamily: 'monospace' }}>{risk.id}</strong>
-                <span style={{ color: '#cbd5e1', marginLeft: '0.5rem' }}>{risk.name}</span>
-                <span style={{ color: '#94a3b8', fontSize: '0.875rem', display: 'block', marginTop: '0.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                  <span style={{ 
+                    color: '#F97316', 
+                    fontFamily: 'monospace', 
+                    fontWeight: 700,
+                    background: '#FFF7ED',
+                    padding: '0.25rem 0.5rem',
+                    borderRadius: '6px',
+                    fontSize: '0.75rem'
+                  }}>{risk.id}</span>
+                  <span style={{ color: '#111827', fontWeight: 600 }}>{risk.name}</span>
+                </div>
+                <span style={{ color: '#6B7280', fontSize: '0.8125rem' }}>
                   Nivel: {risk.level} | Prob: {risk.probability} × Imp: {risk.impact}
                 </span>
               </li>

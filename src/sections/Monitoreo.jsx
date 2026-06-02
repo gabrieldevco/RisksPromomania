@@ -27,18 +27,20 @@ const nextReviews = {
 
 const Monitoreo = () => {
   return (
-    <div>
+    <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem 3rem' }}>
       <div className="section-header">
-        <h1>Plan de Monitoreo</h1>
+        <h1>Plan de <span>Monitoreo</span></h1>
         <p>FASE 5: Tablero de seguimiento y control de riesgos</p>
       </div>
 
       <div style={{
-        background: '#334155',
-        borderRadius: '12px',
-        padding: '1.5rem',
+        background: 'white',
+        borderRadius: '20px',
+        padding: '2rem',
         overflowX: 'auto',
-        marginBottom: '2rem'
+        marginBottom: '2rem',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+        border: '1px solid #E5E7EB'
       }}>
         <table style={{
           width: '100%',
@@ -47,66 +49,19 @@ const Monitoreo = () => {
         }}>
           <thead>
             <tr>
-              <th style={{
-                textAlign: 'left',
-                padding: '0.75rem 1rem',
-                color: '#94a3b8',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                fontSize: '0.75rem',
-                letterSpacing: '0.05em',
-                borderBottom: '2px solid #475569'
-              }}>ID</th>
-              <th style={{
-                textAlign: 'left',
-                padding: '0.75rem 1rem',
-                color: '#94a3b8',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                fontSize: '0.75rem',
-                letterSpacing: '0.05em',
-                borderBottom: '2px solid #475569'
-              }}>Riesgo</th>
-              <th style={{
-                textAlign: 'left',
-                padding: '0.75rem 1rem',
-                color: '#94a3b8',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                fontSize: '0.75rem',
-                letterSpacing: '0.05em',
-                borderBottom: '2px solid #475569'
-              }}>Indicador</th>
-              <th style={{
-                textAlign: 'left',
-                padding: '0.75rem 1rem',
-                color: '#94a3b8',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                fontSize: '0.75rem',
-                letterSpacing: '0.05em',
-                borderBottom: '2px solid #475569'
-              }}>Frecuencia</th>
-              <th style={{
-                textAlign: 'left',
-                padding: '0.75rem 1rem',
-                color: '#94a3b8',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                fontSize: '0.75rem',
-                letterSpacing: '0.05em',
-                borderBottom: '2px solid #475569'
-              }}>Responsable</th>
-              <th style={{
-                textAlign: 'left',
-                padding: '0.75rem 1rem',
-                color: '#94a3b8',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                fontSize: '0.75rem',
-                letterSpacing: '0.05em',
-                borderBottom: '2px solid #475569'
-              }}>Próxima Revisión</th>
+              {['ID', 'Riesgo', 'Indicador', 'Frecuencia', 'Responsable', 'Próxima Revisión'].map((header) => (
+                <th key={header} style={{
+                  textAlign: 'left',
+                  padding: '1rem',
+                  color: '#6B7280',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  fontSize: '0.75rem',
+                  letterSpacing: '0.05em',
+                  borderBottom: '2px solid #E5E7EB',
+                  background: '#F9FAFB'
+                }}>{header}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -116,15 +71,15 @@ const Monitoreo = () => {
               const zoneColor = getZoneColor(risk.zone);
 
               return (
-                <tr key={risk.id} style={{ borderBottom: '1px solid #475569' }}>
+                <tr key={risk.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
                   <td style={{
                     padding: '1rem',
                     fontFamily: 'monospace',
-                    fontWeight: 600,
-                    color: '#6366f1'
+                    fontWeight: 700,
+                    color: '#6B21A8'
                   }}>{risk.id}</td>
-                  <td style={{ padding: '1rem', color: '#f8fafc' }}>{risk.name}</td>
-                  <td style={{ padding: '1rem', color: '#cbd5e1', fontSize: '0.875rem' }}>{risk.indicator}</td>
+                  <td style={{ padding: '1rem', color: '#111827', fontWeight: 500 }}>{risk.name}</td>
+                  <td style={{ padding: '1rem', color: '#6B7280', fontSize: '0.875rem' }}>{risk.indicator}</td>
                   <td style={{ padding: '1rem' }}>
                     <span style={{
                       display: 'inline-flex',
@@ -132,22 +87,27 @@ const Monitoreo = () => {
                       padding: '0.375rem 0.75rem',
                       borderRadius: '9999px',
                       fontSize: '0.75rem',
-                      fontWeight: 600,
+                      fontWeight: 700,
                       textTransform: 'uppercase',
-                      background: `${zoneColor}30`,
+                      background: `${zoneColor}15`,
                       color: zoneColor,
-                      border: `1px solid ${zoneColor}`
+                      border: `1px solid ${zoneColor}30`
                     }}>
                       {freq}
                     </span>
                   </td>
-                  <td style={{ padding: '1rem', color: '#cbd5e1' }}>{risk.responsible}</td>
+                  <td style={{ padding: '1rem', color: '#6B7280' }}>{risk.responsible}</td>
                   <td style={{ padding: '1rem' }}>
                     <span style={{
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.5rem',
-                      color: nextReview === 'Automático' ? '#86efac' : '#cbd5e1'
+                      padding: '0.5rem 0.75rem',
+                      background: nextReview === 'Automático' ? '#D1FAE5' : '#F3E8FF',
+                      borderRadius: '8px',
+                      color: nextReview === 'Automático' ? '#16A34A' : '#6B21A8',
+                      fontWeight: 600,
+                      fontSize: '0.8125rem'
                     }}>
                       <Activity size={14} />
                       {nextReview}
@@ -165,82 +125,38 @@ const Monitoreo = () => {
         gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
         gap: '1.5rem'
       }}>
-        <div style={{ background: '#334155', borderRadius: '12px', padding: '1.5rem' }}>
-          <h3 style={{
-            fontSize: '1rem',
-            fontWeight: 600,
-            marginBottom: '1rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
+        {[
+          { icon: Clock, color: '#DC2626', title: 'Revisión Diaria', items: ['Monitoreo de uptime', 'Alertas de seguridad', 'Dashboard de métricas'] },
+          { icon: Clock, color: '#F97316', title: 'Revisión Semanal', items: ['Publicaciones moderadas', 'Avance del proyecto', 'Tickets críticos'] },
+          { icon: Clock, color: '#6B21A8', title: 'Revisión Mensual', items: ['Métricas de negocio', 'Retención de talento', 'Nuevos riesgos'] },
+          { icon: Clock, color: '#7C3AED', title: 'Revisión Trimestral', items: ['Auditoría de seguridad', 'Cumplimiento normativo', 'Actualización del plan'] }
+        ].map((section, i) => (
+          <div key={i} style={{ 
+            background: 'white', 
+            borderRadius: '16px', 
+            padding: '1.5rem',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+            border: '1px solid #E5E7EB'
           }}>
-            <Clock size={20} color="#6366f1" />
-            Revisión Diaria
-          </h3>
-          <ul style={{ color: '#cbd5e1', fontSize: '0.9375rem', lineHeight: 1.8, paddingLeft: '1.5rem' }}>
-            <li>Monitoreo de uptime y performance</li>
-            <li>Alertas de seguridad</li>
-            <li>Dashboard de métricas clave</li>
-          </ul>
-        </div>
-
-        <div style={{ background: '#334155', borderRadius: '12px', padding: '1.5rem' }}>
-          <h3 style={{
-            fontSize: '1rem',
-            fontWeight: 600,
-            marginBottom: '1rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}>
-            <Clock size={20} color="#ca8a04" />
-            Revisión Semanal
-          </h3>
-          <ul style={{ color: '#cbd5e1', fontSize: '0.9375rem', lineHeight: 1.8, paddingLeft: '1.5rem' }}>
-            <li>Publicaciones reportadas/moderadas</li>
-            <li>Avance del proyecto</li>
-            <li>Tickets de soporte críticos</li>
-          </ul>
-        </div>
-
-        <div style={{ background: '#334155', borderRadius: '12px', padding: '1.5rem' }}>
-          <h3 style={{
-            fontSize: '1rem',
-            fontWeight: 600,
-            marginBottom: '1rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}>
-            <Clock size={20} color="#0ea5e9" />
-            Revisión Mensual
-          </h3>
-          <ul style={{ color: '#cbd5e1', fontSize: '0.9375rem', lineHeight: 1.8, paddingLeft: '1.5rem' }}>
-            <li>Métricas de negocio</li>
-            <li>Retención de talento</li>
-            <li>Nuevos riesgos identificados</li>
-          </ul>
-        </div>
-
-        <div style={{ background: '#334155', borderRadius: '12px', padding: '1.5rem' }}>
-          <h3 style={{
-            fontSize: '1rem',
-            fontWeight: 600,
-            marginBottom: '1rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}>
-            <Clock size={20} color="#8b5cf6" />
-            Revisión Trimestral
-          </h3>
-          <ul style={{ color: '#cbd5e1', fontSize: '0.9375rem', lineHeight: 1.8, paddingLeft: '1.5rem' }}>
-            <li>Auditoría de seguridad</li>
-            <li>Cumplimiento normativo</li>
-            <li>Análisis de competencia</li>
-            <li>Actualización del plan</li>
-          </ul>
-        </div>
+            <h3 style={{
+              fontSize: '1rem',
+              fontWeight: 700,
+              marginBottom: '1rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              color: section.color
+            }}>
+              <section.icon size={20} />
+              {section.title}
+            </h3>
+            <ul style={{ color: '#4B5563', fontSize: '0.9375rem', lineHeight: 1.8, paddingLeft: '1.5rem', margin: 0 }}>
+              {section.items.map((item, j) => (
+                <li key={j}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );

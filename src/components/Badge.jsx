@@ -1,9 +1,9 @@
 const Badge = ({ zone, children }) => {
   const styles = {
-    critical: { background: 'rgba(220, 38, 38, 0.2)', color: '#fca5a5', border: '1px solid #dc2626' },
-    high: { background: 'rgba(234, 88, 12, 0.2)', color: '#fdba74', border: '1px solid #ea580c' },
-    medium: { background: 'rgba(202, 138, 4, 0.2)', color: '#fde047', border: '1px solid #ca8a04' },
-    low: { background: 'rgba(22, 163, 74, 0.2)', color: '#86efac', border: '1px solid #16a34a' }
+    critical: { background: '#FEE2E2', color: '#DC2626', border: '1px solid #FECACA' },
+    high: { background: '#FFEDD5', color: '#F97316', border: '1px solid #FED7AA' },
+    medium: { background: '#FEF3C7', color: '#D97706', border: '1px solid #FDE68A' },
+    low: { background: '#D1FAE5', color: '#16A34A', border: '1px solid #A7F3D0' }
   };
 
   const style = styles[zone] || styles.low;
@@ -13,12 +13,12 @@ const Badge = ({ zone, children }) => {
       display: 'inline-flex',
       alignItems: 'center',
       gap: '0.25rem',
-      padding: '0.375rem 0.75rem',
+      padding: '0.5rem 1rem',
       borderRadius: '9999px',
       fontSize: '0.75rem',
-      fontWeight: 600,
+      fontWeight: 700,
       textTransform: 'uppercase',
-      letterSpacing: '0.025em',
+      letterSpacing: '0.05em',
       ...style
     }}>
       {children}

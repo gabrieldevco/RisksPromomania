@@ -1,50 +1,48 @@
 /* ============================================
    PROMOMANIA - SISTEMA DE GESTIÓN DE RIESGOS
-   Estilos React
+   Estilo Oficial Promomania
    ============================================ */
 
-/* Variables CSS */
+/* Variables CSS - Colores Promomania */
 :root {
-  /* Colores de riesgo */
-  --risk-critical: #dc2626;
-  --risk-high: #ea580c;
-  --risk-medium: #ca8a04;
-  --risk-low: #16a34a;
+  /* Colores principales Promomania */
+  --promo-purple: #6B21A8;
+  --promo-purple-dark: #581C87;
+  --promo-purple-light: #A855F7;
+  --promo-orange: #F97316;
+  --promo-orange-light: #FB923C;
+  --promo-orange-dark: #EA580C;
   
-  /* Colores de tema */
-  --primary: #6366f1;
-  --primary-dark: #4f46e5;
-  --secondary: #0ea5e9;
-  --accent: #8b5cf6;
+  /* Colores de riesgo */
+  --risk-critical: #DC2626;
+  --risk-high: #F97316;
+  --risk-medium: #EAB308;
+  --risk-low: #22C55E;
   
   /* Colores de fondo */
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-card: #334155;
-  --bg-hover: #475569;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F9FAFB;
+  --bg-card: #FFFFFF;
+  --bg-hero: linear-gradient(135deg, #6B21A8 0%, #A855F7 50%, #7C3AED 100%);
+  --bg-dark: #1F2937;
   
   /* Texto */
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --text-muted: #6B7280;
+  --text-white: #FFFFFF;
   
   /* Bordes */
-  --border-color: #475569;
-  --border-radius: 12px;
-  --border-radius-sm: 8px;
+  --border-color: #E5E7EB;
+  --border-radius: 16px;
+  --border-radius-sm: 12px;
   
-  /* Espaciado */
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 1.5rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 3rem;
-  
-  /* Sombras */
+  /* Sombras Promomania */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(107 33 168 / 0.1), 0 2px 4px -2px rgb(107 33 168 / 0.1);
+  --shadow-lg: 0 10px 25px -5px rgb(107 33 168 / 0.15), 0 8px 10px -6px rgb(107 33 168 / 0.1);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 0 30px rgba(249, 115, 22, 0.3);
 }
 
 /* Reset y base */
@@ -70,10 +68,10 @@ body {
   min-height: 100vh;
 }
 
-/* Scrollbar */
+/* Scrollbar moderna */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -81,10 +79,48 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-hover);
-  border-radius: 5px;
+  background: var(--promo-purple-light);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--border-color);
+  background: var(--promo-purple);
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }

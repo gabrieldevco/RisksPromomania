@@ -1,5 +1,5 @@
 import { controlLevels, getControlLabel } from '../data/risks';
-import { Shield } from 'lucide-react';
+import { Shield, Sliders } from 'lucide-react';
 
 const ControlSlider = ({ risk, onControlChange }) => {
   const currentLevel = risk.controlLevel || 1;
@@ -12,35 +12,44 @@ const ControlSlider = ({ risk, onControlChange }) => {
 
   return (
     <div style={{
-      background: 'rgba(99, 102, 241, 0.1)',
-      borderRadius: '12px',
-      padding: '1rem',
-      marginTop: '1rem',
-      border: '1px solid rgba(99, 102, 241, 0.3)'
+      background: 'linear-gradient(135deg, #F3E8FF, #EDE9FE)',
+      borderRadius: '16px',
+      padding: '1.25rem',
+      marginTop: '1.25rem',
+      border: '1px solid #DDD6FE'
     }}>
       <div style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: '0.75rem'
+        marginBottom: '1rem'
       }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
           gap: '0.5rem',
-          fontSize: '0.875rem',
-          fontWeight: 600,
-          color: '#6366f1'
+          fontSize: '0.9375rem',
+          fontWeight: 700,
+          color: '#6B21A8'
         }}>
-          <Shield size={18} />
+          <div style={{
+            background: '#6B21A8',
+            borderRadius: '8px',
+            padding: '6px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <Sliders size={16} color="white" />
+          </div>
           Nivel de Control
         </div>
         <span style={{
-          padding: '0.25rem 0.75rem',
-          background: '#6366f1',
+          padding: '0.375rem 1rem',
+          background: currentLevel === 1 ? '#9CA3AF' : '#6B21A8',
           color: 'white',
           borderRadius: '9999px',
-          fontSize: '0.75rem',
+          fontSize: '0.8125rem',
           fontWeight: 700
         }}>
           {currentLevel} - {currentLabel}
@@ -48,7 +57,7 @@ const ControlSlider = ({ risk, onControlChange }) => {
       </div>
 
       {/* Slider */}
-      <div style={{ marginBottom: '0.75rem' }}>
+      <div style={{ marginBottom: '1rem' }}>
         <input
           type="range"
           min="1"
@@ -58,9 +67,9 @@ const ControlSlider = ({ risk, onControlChange }) => {
           onChange={handleChange}
           style={{
             width: '100%',
-            height: '8px',
-            borderRadius: '4px',
-            background: `linear-gradient(to right, #6366f1 0%, #6366f1 ${(currentLevel - 1) * 25}%, #475569 ${(currentLevel - 1) * 25}%, #475569 100%)`,
+            height: '10px',
+            borderRadius: '5px',
+            background: `linear-gradient(to right, #6B21A8 0%, #6B21A8 ${(currentLevel - 1) * 25}%, #E5E7EB ${(currentLevel - 1) * 25}%, #E5E7EB 100%)`,
             outline: 'none',
             cursor: 'pointer',
             appearance: 'none',
@@ -70,15 +79,16 @@ const ControlSlider = ({ risk, onControlChange }) => {
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
-          marginTop: '0.5rem',
-          fontSize: '0.625rem',
-          color: '#94a3b8'
+          marginTop: '0.75rem',
+          fontSize: '0.75rem',
+          color: '#6B7280',
+          fontWeight: 500
         }}>
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>5</span>
+          <span style={{ color: currentLevel === 1 ? '#6B21A8' : '#9CA3AF', fontWeight: currentLevel === 1 ? 700 : 500 }}>1</span>
+          <span style={{ color: currentLevel === 2 ? '#6B21A8' : '#9CA3AF', fontWeight: currentLevel === 2 ? 700 : 500 }}>2</span>
+          <span style={{ color: currentLevel === 3 ? '#6B21A8' : '#9CA3AF', fontWeight: currentLevel === 3 ? 700 : 500 }}>3</span>
+          <span style={{ color: currentLevel === 4 ? '#6B21A8' : '#9CA3AF', fontWeight: currentLevel === 4 ? 700 : 500 }}>4</span>
+          <span style={{ color: currentLevel === 5 ? '#6B21A8' : '#9CA3AF', fontWeight: currentLevel === 5 ? 700 : 500 }}>5</span>
         </div>
       </div>
 
@@ -86,9 +96,9 @@ const ControlSlider = ({ risk, onControlChange }) => {
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
-        fontSize: '0.625rem',
-        color: '#64748b',
-        marginTop: '0.25rem'
+        fontSize: '0.6875rem',
+        color: '#6B7280',
+        marginBottom: '0.75rem'
       }}>
         <span>Nunca</span>
         <span>Rara vez</span>
@@ -98,14 +108,24 @@ const ControlSlider = ({ risk, onControlChange }) => {
       </div>
 
       {/* Descripción del nivel actual */}
-      <p style={{
-        fontSize: '0.75rem',
-        color: '#94a3b8',
-        marginTop: '0.75rem',
-        fontStyle: 'italic'
+      <div style={{
+        background: 'white',
+        borderRadius: '10px',
+        padding: '0.75rem 1rem',
+        border: '1px solid #DDD6FE'
       }}>
-        {controlLevels[currentLevel].description}
-      </p>
+        <p style={{
+          fontSize: '0.8125rem',
+          color: '#6B7280',
+          margin: 0,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem'
+        }}>
+          <Shield size={14} color="#6B21A8" />
+          {controlLevels[currentLevel].description}
+        </p>
+      </div>
     </div>
   );
 };
