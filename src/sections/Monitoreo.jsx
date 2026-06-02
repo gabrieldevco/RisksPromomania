@@ -17,12 +17,12 @@ const frequencies = {
 };
 
 const nextReviews = {
-  'Diaria': '2024-01-15',
+  'Diaria': '2026-07-15',
   'Continua': 'Automático',
-  'Semanal': '2024-01-22',
-  'Mensual': '2024-02-01',
-  'Trimestral': '2024-03-31',
-  'Semestral': '2024-06-30'
+  'Semanal': '2026-07-22',
+  'Mensual': '2026-08-01',
+  'Trimestral': '2026-09-30',
+  'Semestral': '2026-12-31'
 };
 
 const Monitoreo = () => {
