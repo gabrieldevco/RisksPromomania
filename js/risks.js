@@ -269,16 +269,6 @@ const getZoneLabel = (zone) => {
     return labels[zone] || zone;
 };
 
-const getProbabilityLabel = (prob) => {
-    const labels = { 1: 'Muy Baja', 2: 'Baja', 3: 'Media', 4: 'Alta', 5: 'Muy Alta' };
-    return labels[prob] || prob;
-};
-
-const getImpactLabel = (imp) => {
-    const labels = { 1: 'Insignificante', 2: 'Menor', 3: 'Moderado', 4: 'Mayor', 5: 'Catastrófico' };
-    return labels[imp] || imp;
-};
-
 // ============================================
 // RENDERIZADO DE COMPONENTES
 // ============================================

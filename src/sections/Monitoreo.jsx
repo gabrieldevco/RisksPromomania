@@ -1,5 +1,5 @@
 import { risks, getZoneColor } from '../data/risks';
-import { Clock, User, Activity } from 'lucide-react';
+import { Clock, Activity } from 'lucide-react';
 
 const frequencies = {
   'R02': 'Diaria',

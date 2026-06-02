@@ -1,5 +1,5 @@
 import { risks, riskStats, getZoneColor } from '../data/risks';
-import { AlertTriangle, Shield, Activity, TrendingUp, Users, Server } from 'lucide-react';
+import { AlertTriangle, Shield, Activity, TrendingUp } from 'lucide-react';
 
 const StatCard = ({ zone, value, label, icon: Icon }) => {
   const color = getZoneColor(zone);

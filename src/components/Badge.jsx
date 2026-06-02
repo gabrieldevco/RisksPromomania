@@ -1,5 +1,3 @@
-import { getZoneColor } from '../data/risks';
-
 const Badge = ({ zone, children }) => {
   const styles = {
     critical: { background: 'rgba(220, 38, 38, 0.2)', color: '#fca5a5', border: '1px solid #dc2626' },

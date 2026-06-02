@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { risks, getZoneLabel, updateRiskControlLevel, getControlLabel, controlLevels } from '../data/risks';
+import { risks, getZoneLabel, updateRiskControlLevel, controlLevels } from '../data/risks';
 import RiskCard from '../components/RiskCard';
 
 const Riesgos = () => {

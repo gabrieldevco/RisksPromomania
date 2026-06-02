@@ -1,4 +1,4 @@
-import { controlLevels, getControlLabel, getZoneColor } from '../data/risks';
+import { controlLevels, getControlLabel } from '../data/risks';
 import { Shield } from 'lucide-react';
 
 const ControlSlider = ({ risk, onControlChange }) => {

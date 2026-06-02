@@ -1,13 +1,12 @@
 import Badge from './Badge';
 import ControlSlider from './ControlSlider';
 import MitigationDisplay from './MitigationDisplay';
-import { getZoneLabel, getZoneColor, getZoneLabel as getZoneLabelFunc } from '../data/risks';
+import { getZoneLabel, getZoneColor } from '../data/risks';
 
 const RiskCard = ({ risk, onControlChange }) => {
   const zoneColor = getZoneColor(risk.zone);
   const hasControl = risk.controlLevel > 1;
   const displayZone = hasControl ? risk.residualZone : risk.zone;
-  const displayLevel = hasControl ? risk.residualLevel : risk.level;
   const displayColor = getZoneColor(displayZone);
 
   return (
@@ -65,7 +64,7 @@ const RiskCard = ({ risk, onControlChange }) => {
               padding: '0.25rem 0.5rem',
               borderRadius: '4px'
             }}>
-              → {getZoneLabelFunc(displayZone)}
+              → {getZoneLabel(displayZone)}
             </span>
           )}
         </div>
