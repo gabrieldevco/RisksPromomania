@@ -72,7 +72,7 @@ Se han identificado **12 riesgos críticos** que podrían afectar el proyecto Pr
 | R09 | Fuga de información sensible | Seguridad | Filtración de datos personales de usuarios |
 | R10 | Dependencia de terceros | Técnico | Fallos en servicios externos (pasarelas de pago, hosting) |
 | R11 | Escasez de talento técnico | Recursos | Dificultad para contratar desarrolladores calificados |
-| R12 | Problemas de monetización | Financiero | El modelo de negocio no genera ingresos suficientes |
+| R12 | Sostenibilidad financiera | Financiero | Ingresos no cubren costos operativos del proyecto |
 
 ---
 
@@ -121,7 +121,7 @@ Cada riesgo se evalúa según los siguientes criterios:
 | R06 | Fallos en el sistema | 4 | 4 | 16 | 🟠 Alto |
 | R01 | Fraudes en publicaciones | 4 | 3 | 12 | 🟠 Alto |
 | R03 | Baja adopción de usuarios | 3 | 4 | 12 | 🟠 Alto |
-| R12 | Problemas de monetización | 3 | 4 | 12 | 🟠 Alto |
+| R12 | Sostenibilidad financiera | 3 | 4 | 12 | 🟠 Alto |
 | R04 | Competencia agresiva | 3 | 3 | 9 | 🟡 Medio |
 | R07 | Incumplimiento normativo | 2 | 4 | 8 | 🟡 Medio |
 | R08 | Retrasos en desarrollo | 3 | 2 | 6 | 🟡 Medio |
@@ -139,7 +139,7 @@ Cada riesgo se evalúa según los siguientes criterios:
 - **R06 - Fallos en el sistema**: Nivel 16
 - **R01 - Fraudes en publicaciones**: Nivel 12
 - **R03 - Baja adopción de usuarios**: Nivel 12
-- **R12 - Problemas de monetización**: Nivel 12
+- **R12 - Sostenibilidad financiera**: Nivel 12
 
 #### 🟡 Riesgos Medios (Monitoreo regular)
 - **R04 - Competencia agresiva**: Nivel 9
@@ -218,15 +218,15 @@ Cada riesgo se evalúa según los siguientes criterios:
 - **Responsable:** CMO / Growth Hacker
 - **Indicador:** Tasa de conversión de visitantes a usuarios registrados
 
-#### R12 - Problemas de Monetización
+#### R12 - Sostenibilidad Financiera
 - **Estrategia:** Mitigar
 - **Acciones:**
-  - Modelo freemium con características premium
-  - Diversificación de fuentes de ingresos (suscripciones, publicidad, comisiones)
-  - Análisis de cohortes y LTV/CAC
-  - Experimentación continua de precios
-- **Responsable:** CEO / CFO
-- **Indicador:** MRR (Monthly Recurring Revenue) y CAC Payback Period
+  - Modelo de publicidad segmentada para comercios locales
+  - Comisiones por publicaciones destacadas de promociones
+  - Monitoreo mensual del burn rate y runway financiero
+  - Búsqueda de inversión adicional o ronda de financiamiento
+- **Responsable:** Director del Proyecto / Asesor Financiero
+- **Indicador:** Burn rate mensual vs ingresos generados
 
 ---
 
@@ -236,18 +236,18 @@ Cada riesgo se evalúa según los siguientes criterios:
 
 | ID | Riesgo | Indicador | Frecuencia | Responsable | Próxima Revisión |
 |----|--------|-----------|------------|-------------|------------------|
-| R02 | Ataques cibernéticos | Intentos de ataque bloqueados | Diaria | CISO | 2024-01-15 |
-| R09 | Fuga de información | Incidentes de fuga de datos | Trimestral | DPO | 2024-03-31 |
-| R05 | Escalabilidad | Tiempo de respuesta del sistema | Diaria | Arquitecto | 2024-01-15 |
+| R02 | Ataques cibernéticos | Intentos de ataque bloqueados | Diaria | CISO | 2026-07-15 |
+| R09 | Fuga de información | Incidentes de fuga de datos | Trimestral | DPO | 2026-09-30 |
+| R05 | Escalabilidad | Tiempo de respuesta del sistema | Diaria | Arquitecto | 2026-07-15 |
 | R06 | Fallos en sistema | Uptime del sistema | Continua | DevOps | Automático |
-| R01 | Fraudes | % publicaciones fraudulentas | Semanal | Product Manager | 2024-01-22 |
-| R03 | Adopción | Tasa de conversión | Mensual | CMO | 2024-02-01 |
-| R12 | Monetización | MRR y CAC Payback | Mensual | CFO | 2024-02-01 |
-| R04 | Competencia | Cambios en market share | Trimestral | CEO | 2024-03-31 |
-| R07 | Normativo | Auditorías de cumplimiento | Semestral | Legal | 2024-06-30 |
-| R08 | Retrasos | % avance vs plan | Semanal | PMO | 2024-01-22 |
+| R01 | Fraudes | % publicaciones fraudulentas | Semanal | Product Manager | 2026-07-22 |
+| R03 | Adopción | Tasa de conversión | Mensual | CMO | 2026-08-01 |
+| R12 | Sostenibilidad financiera | Burn rate vs ingresos | Mensual | Director / Asesor Fin. | 2026-08-01 |
+| R04 | Competencia | Cambios en market share | Trimestral | CEO | 2026-09-30 |
+| R07 | Normativo | Auditorías de cumplimiento | Semestral | Legal | 2026-12-31 |
+| R08 | Retrasos | % avance vs plan | Semanal | Director del Proyecto | 2026-07-22 |
 | R10 | Dependencia terceros | Disponibilidad de servicios | Continua | DevOps | Automático |
-| R11 | Talento técnico | Tasa de rotación | Mensual | RRHH | 2024-02-01 |
+| R11 | Talento técnico | Tasa de rotación | Mensual | RRHH | 2026-08-01 |
 
 ### Acciones de Seguimiento por Intervalo
 
@@ -311,16 +311,16 @@ Cada riesgo se evalúa según los siguientes criterios:
 
 ---
 
-## 👥 Equipo del Proyecto
+## 👥 Equipo del Proyecto (Acta de Constitución)
 
-| Rol | Responsabilidad |
-|-----|-----------------|
-| **Gerente de Proyecto** | Coordinación general, Plan de riesgos |
-| **CISO** | Gestión de riesgos de seguridad |
-| **Arquitecto de Software** | Riesgos técnicos y escalabilidad |
-| **CMO** | Riesgos de mercado y adopción |
-| **CFO** | Riesgos financieros y monetización |
-| **DPO** | Cumplimiento normativo y protección de datos |
+| Rol | Responsable | Funciones |
+|-----|-------------|-----------|
+| **Director del Proyecto** | Armando Pérez | Planificar cronograma, coordinar equipo técnico, gestionar riesgos, presentar avances al sponsor |
+| **Líder Técnico / Backend** | Armando Pérez | Arquitectura y desarrollo backend |
+| **Desarrollador Frontend** | Harlem Hernández | UI/UX e implementación frontend |
+| **Diseñador UI/UX** | Georgy Muñoz | Prototipos Figma y diseño de interfaz |
+| **Administrador BD** | Gabriel Padilla | Modelo relacional y gestión de base de datos |
+| **QA** | Armando Pérez | Pruebas funcionales del sistema |
 
 ---
 
@@ -328,11 +328,11 @@ Cada riesgo se evalúa según los siguientes criterios:
 
 | Fase | Actividad | Fecha Inicio | Fecha Fin | Estado |
 |------|-----------|--------------|-----------|--------|
-| FASE 1 | Identificación de riesgos | 2024-01-01 | 2024-01-07 | ✅ Completado |
-| FASE 2 | Análisis cualitativo | 2024-01-08 | 2024-01-14 | ✅ Completado |
-| FASE 3 | Construcción matriz | 2024-01-15 | 2024-01-21 | ✅ Completado |
-| FASE 4 | Plan de respuesta | 2024-01-22 | 2024-01-28 | ✅ Completado |
-| FASE 5 | Plan de monitoreo | 2024-01-29 | 2024-02-04 | ✅ Completado |
+| FASE 1 | Identificación de riesgos | 2026-07-01 | 2026-07-15 | ✅ Completado |
+| FASE 2 | Análisis cualitativo | 2026-07-16 | 2026-07-31 | ✅ Completado |
+| FASE 3 | Construcción matriz | 2026-08-01 | 2026-08-15 | ✅ Completado |
+| FASE 4 | Plan de respuesta | 2026-08-16 | 2026-08-31 | ✅ Completado |
+| FASE 5 | Plan de monitoreo | 2026-09-01 | 2026-09-18 | ✅ Completado |
 
 ---
 
@@ -346,18 +346,19 @@ Cada riesgo se evalúa según los siguientes criterios:
 
 ---
 
-## 📞 Contacto
+## 📞 Información del Proyecto
 
-Para más información sobre el proyecto Promomania y su gestión de riesgos:
+**Promomanía** – Plataforma Web Colaborativa para la Centralización y Validación de Promociones en Colombia
 
-- **Email:** contacto@promomania.com
-- **Web:** [www.promomania.com](https://www.promomania.com)
+- **Sponsor:** Fondo Emprender – Entidad de financiamiento y apoyo al emprendimiento en Colombia
+- **Presupuesto Total:** $593,408,360 COP
+- **Plazo de Ejecución:** 4 meses (hasta 30 de noviembre de 2026)
+- **Fecha de Lanzamiento Objetivo:** 30 de noviembre de 2026
 
 ---
 
-**Universidad / Institución**  
-**Asignatura:** Gestión de Proyectos  
-**Año:** 2024
+**Proyecto académico - Gestión de Proyectos**  
+**Año:** 2026
 
 ---
 
