@@ -76,16 +76,16 @@ const Riesgos = () => {
         }}>
           {Object.entries(controlLevels).map(([level, data]) => (
             <div key={level} style={{
-              background: 'rgba(255,255,255,0.95)',
+              background: 'rgba(17, 24, 39, 0.6)',
               borderRadius: '12px',
               padding: '1rem',
               textAlign: 'center',
-              border: '1px solid rgba(255,255,255,0.3)',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+              border: '1px solid rgba(255,255,255,0.2)',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
             }}>
-              <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#6B21A8' }}>{level}</div>
-              <div style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#111827', marginTop: '0.25rem' }}>{data.label}</div>
-              <div style={{ fontSize: '0.6875rem', color: '#6B7280', marginTop: '0.25rem' }}>
+              <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#A855F7' }}>{level}</div>
+              <div style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'white', marginTop: '0.25rem' }}>{data.label}</div>
+              <div style={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.7)', marginTop: '0.25rem' }}>
                 {((1 - data.effectiveness) * 100).toFixed(0)}% efectivo
               </div>
             </div>
@@ -99,19 +99,19 @@ const Riesgos = () => {
           paddingTop: '1.5rem',
           borderTop: '1px solid rgba(255,255,255,0.2)'
         }}>
-          <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.95)', padding: '1rem', borderRadius: '12px' }}>
-            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#6B21A8' }}>{mitigatedCount}</div>
-            <div style={{ fontSize: '0.8125rem', color: '#6B7280', fontWeight: 500 }}>Con controles</div>
+          <div style={{ textAlign: 'center', background: 'rgba(17, 24, 39, 0.6)', padding: '1rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.2)' }}>
+            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#A855F7' }}>{mitigatedCount}</div>
+            <div style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}>Con controles</div>
           </div>
-          <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.95)', padding: '1rem', borderRadius: '12px' }}>
-            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#16A34A' }}>{improvedCount}</div>
-            <div style={{ fontSize: '0.8125rem', color: '#6B7280', fontWeight: 500 }}>Mejorados</div>
+          <div style={{ textAlign: 'center', background: 'rgba(17, 24, 39, 0.6)', padding: '1rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.2)' }}>
+            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#4ADE80' }}>{improvedCount}</div>
+            <div style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}>Mejorados</div>
           </div>
-          <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.95)', padding: '1rem', borderRadius: '12px' }}>
-            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#DC2626' }}>
+          <div style={{ textAlign: 'center', background: 'rgba(17, 24, 39, 0.6)', padding: '1rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.2)' }}>
+            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#F87171' }}>
               {risksWithControl.filter(r => r.residualZone === 'critical').length}
             </div>
-            <div style={{ fontSize: '0.8125rem', color: '#6B7280', fontWeight: 500 }}>Críticos residuales</div>
+            <div style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}>Críticos residuales</div>
           </div>
         </div>
       </div>
