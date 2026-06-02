@@ -3,10 +3,10 @@ import { AlertTriangle, Shield, Activity, TrendingUp, ArrowRight, Users, Shoppin
 
 const StatCard = ({ zone, value, label, icon: Icon, subtitle }) => {
   const color = getZoneColor(zone);
-  
+
   return (
     <div style={{
-      background: 'white',
+      background: 'var(--bg-card)',
       border: `1px solid ${color}30`,
       borderRadius: '16px',
       padding: '1.5rem',
@@ -34,14 +34,14 @@ const StatCard = ({ zone, value, label, icon: Icon, subtitle }) => {
       }}>{value}</div>
       <div style={{
         fontSize: '0.875rem',
-        color: '#374151',
+        color: 'var(--text-primary)',
         fontWeight: 600,
         marginTop: '0.25rem'
       }}>{label}</div>
       {subtitle && (
         <div style={{
           fontSize: '0.75rem',
-          color: '#9CA3AF',
+          color: 'var(--text-muted)',
           marginTop: '0.25rem'
         }}>{subtitle}</div>
       )}
@@ -202,20 +202,20 @@ const Dashboard = ({ setActiveSection }) => {
           gap: '2rem'
         }}>
           {/* Distribution Chart */}
-          <div style={{ 
-            background: 'white',
+          <div style={{
+            background: 'var(--bg-card)',
             borderRadius: '16px',
             padding: '2rem',
             boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-            border: '1px solid #E5E7EB'
+            border: '1px solid var(--border-color)'
           }}>
             <h2 style={{
               fontSize: '1.25rem',
               fontWeight: 700,
               marginBottom: '1.5rem',
-              color: '#111827'
+              color: 'var(--text-primary)'
             }}>Distribución de Riesgos</h2>
-            
+
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {[
                 { zone: 'critical', value: riskStats.critical, label: 'Crítico' },
@@ -227,20 +227,20 @@ const Dashboard = ({ setActiveSection }) => {
                 const color = getZoneColor(item.zone);
                 return (
                   <div key={item.zone} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <span style={{ 
-                      minWidth: '80px', 
-                      fontSize: '0.875rem', 
-                      color: '#6B7280', 
-                      fontWeight: 500 
+                    <span style={{
+                      minWidth: '80px',
+                      fontSize: '0.875rem',
+                      color: 'var(--text-secondary)',
+                      fontWeight: 500
                     }}>
                       {item.label}
                     </span>
-                    <div style={{ 
-                      flex: 1, 
-                      height: '40px', 
-                      background: '#F3F4F6', 
-                      borderRadius: '10px', 
-                      overflow: 'hidden' 
+                    <div style={{
+                      flex: 1,
+                      height: '40px',
+                      background: 'var(--bg-hover)',
+                      borderRadius: '10px',
+                      overflow: 'hidden'
                     }}>
                       <div style={{
                         width: `${percentage}%`,
@@ -258,10 +258,10 @@ const Dashboard = ({ setActiveSection }) => {
                         </span>
                       </div>
                     </div>
-                    <span style={{ 
-                      minWidth: '45px', 
-                      fontSize: '0.875rem', 
-                      color: '#6B7280',
+                    <span style={{
+                      minWidth: '45px',
+                      fontSize: '0.875rem',
+                      color: 'var(--text-secondary)',
                       textAlign: 'right'
                     }}>
                       {percentage.toFixed(0)}%
@@ -273,18 +273,18 @@ const Dashboard = ({ setActiveSection }) => {
           </div>
 
           {/* Summary Card */}
-          <div style={{ 
-            background: 'white',
+          <div style={{
+            background: 'var(--bg-card)',
             borderRadius: '16px',
             padding: '2rem',
             boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-            border: '1px solid #E5E7EB'
+            border: '1px solid var(--border-color)'
           }}>
-            <h3 style={{ 
-              fontSize: '1.25rem', 
-              fontWeight: 700, 
-              marginBottom: '1.5rem', 
-              color: '#111827',
+            <h3 style={{
+              fontSize: '1.25rem',
+              fontWeight: 700,
+              marginBottom: '1.5rem',
+              color: 'var(--text-primary)',
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem'
@@ -304,12 +304,12 @@ const Dashboard = ({ setActiveSection }) => {
                   alignItems: 'center',
                   gap: '0.75rem',
                   padding: '1rem',
-                  background: '#F9FAFB',
+                  background: 'var(--bg-hover)',
                   borderRadius: '12px',
                   borderLeft: `3px solid ${item.color}`
                 }}>
                   <item.icon size={20} color={item.color} />
-                  <span style={{ fontSize: '0.9375rem', color: '#374151', fontWeight: 500 }}>
+                  <span style={{ fontSize: '0.9375rem', color: 'var(--text-primary)', fontWeight: 500 }}>
                     {item.text}
                   </span>
                 </div>

@@ -38,6 +38,26 @@ const AppContent = () => {
         minHeight: 'calc(100vh - 70px)'
       }}>
         <style>{`
+          :root {
+            --bg-color: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --text-muted: #9CA3AF;
+            --border-color: #E5E7EB;
+            --bg-hover: #F9FAFB;
+          }
+          
+          html.dark {
+            --bg-color: #111827;
+            --bg-card: #1F2937;
+            --text-primary: #F9FAFB;
+            --text-secondary: #D1D5DB;
+            --text-muted: #9CA3AF;
+            --border-color: #374151;
+            --bg-hover: #374151;
+          }
+          
           .section-header {
             text-align: center;
             margin-bottom: 3rem;
@@ -48,7 +68,8 @@ const AppContent = () => {
             font-size: 2.5rem;
             font-weight: 800;
             margin-bottom: 0.5rem;
-            color: #111827;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
           }
           
           .section-header h1 span {
@@ -57,9 +78,16 @@ const AppContent = () => {
           
           .section-header p {
             font-size: 1.125rem;
-            color: #6B7280;
+            color: var(--text-secondary);
             max-width: 700px;
             margin: 0 auto;
+            transition: color 0.3s ease;
+          }
+          
+          .risk-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
           }
           
           .risk-card:hover {
