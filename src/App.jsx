@@ -5,7 +5,7 @@ import Riesgos from './sections/Riesgos';
 import Matriz from './sections/Matriz';
 import Respuesta from './sections/Respuesta';
 import Monitoreo from './sections/Monitoreo';
-import { ThemeProvider } from './context/ThemeContext';
+import { ThemeProvider } from './context/ThemeProvider';
 import { useTheme } from './hooks/useTheme';
 import { risks } from './data/risks';
 
