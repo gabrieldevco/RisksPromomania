@@ -15,7 +15,7 @@ export const risks = [
     level: 12,
     zone: 'high',
     strategy: 'Mitigar',
-    responsible: 'Gabriel Padilla',
+    responsible: 'Gabriel Padilla (Product Manager / Community Manager)',
     indicator: 'Porcentaje de publicaciones fraudulentas detectadas / total publicaciones',
     actions: [
       'Sistema de verificación de comercios (KYC)',
@@ -35,7 +35,7 @@ export const risks = [
     level: 20,
     zone: 'critical',
     strategy: 'Mitigar + Transferir',
-    responsible: 'Armando Pérez (Líder del Proyecto)',
+    responsible: 'Armando Pérez (CISO / Líder de Seguridad)',
     indicator: 'Número de intentos de ataque bloqueados / mes',
     actions: [
       'Implementar WAF (Web Application Firewall)',
@@ -55,7 +55,7 @@ export const risks = [
     level: 12,
     zone: 'high',
     strategy: 'Mitigar',
-    responsible: 'Harlem Hernández',
+    responsible: 'Harlem Hernández (CMO / Growth Hacker)',
     indicator: 'Tasa de conversión de visitantes a usuarios registrados',
     actions: [
       'Campaña de marketing digital segmentada por ciudad',
@@ -76,7 +76,7 @@ export const risks = [
     level: 9,
     zone: 'medium',
     strategy: 'Mitigar',
-    responsible: 'Georgy Muñoz',
+    responsible: 'Georgy Muñoz (CEO / Estrategia)',
     indicator: 'Cambios en market share trimestral',
     actions: [
       'Diferenciación mediante características únicas',
@@ -96,7 +96,7 @@ export const risks = [
     level: 16,
     zone: 'high',
     strategy: 'Mitigar',
-    responsible: 'Gabriel Padilla',
+    responsible: 'Gabriel Padilla (Arquitecto de Software)',
     indicator: 'Tiempo de respuesta del sistema (SLA < 2 segundos)',
     actions: [
       'Diseño de arquitectura cloud-native (AWS/GCP)',
@@ -116,7 +116,7 @@ export const risks = [
     level: 16,
     zone: 'high',
     strategy: 'Mitigar',
-    responsible: 'Harlem Hernández',
+    responsible: 'Harlem Hernández (Líder de QA / DevOps)',
     indicator: 'Uptime del sistema (SLA 99.9%)',
     actions: [
       'Implementar CI/CD con pruebas automatizadas',
@@ -136,7 +136,7 @@ export const risks = [
     level: 8,
     zone: 'medium',
     strategy: 'Mitigar + Transferir',
-    responsible: 'Georgy Muñoz',
+    responsible: 'Georgy Muñoz (Oficial de Cumplimiento / Legal)',
     indicator: 'Auditorías de cumplimiento (sin hallazgos críticos)',
     actions: [
       'Consultoría legal especializada',
@@ -177,7 +177,7 @@ export const risks = [
     level: 20,
     zone: 'critical',
     strategy: 'Mitigar + Transferir',
-    responsible: 'Gabriel Padilla',
+    responsible: 'Gabriel Padilla (Oficial de Protección de Datos / DPO)',
     indicator: 'Número de incidentes de fuga de datos / trimestre',
     actions: [
       'Encriptación de datos en tránsito y reposo (AES-256)',
@@ -197,7 +197,7 @@ export const risks = [
     level: 6,
     zone: 'medium',
     strategy: 'Mitigar',
-    responsible: 'Harlem Hernández',
+    responsible: 'Harlem Hernández (DevOps / Arquitecto)',
     indicator: 'Disponibilidad de servicios externos (SLA)',
     actions: [
       'Proveedores de respaldo para servicios críticos',
@@ -217,7 +217,7 @@ export const risks = [
     level: 4,
     zone: 'low',
     strategy: 'Mitigar',
-    responsible: 'Georgy Muñoz',
+    responsible: 'Georgy Muñoz (RRHH / CTO)',
     indicator: 'Tasa de rotación de equipo técnico',
     actions: [
       'Programas de retención y beneficios competitivos',
@@ -237,7 +237,7 @@ export const risks = [
     level: 12,
     zone: 'high',
     strategy: 'Mitigar',
-    responsible: 'Gabriel Padilla',
+    responsible: 'Gabriel Padilla (Director del Proyecto / Asesor Financiero)',
     indicator: 'Burn rate mensual vs ingresos generados',
     actions: [
       'Modelo de publicidad segmentada para comercios locales',
