@@ -167,8 +167,8 @@ const Matriz = ({ isDarkMode, risksWithControl }) => {
 
           {/* Rows */}
           {[5, 4, 3, 2, 1].map(p => (
-            <>
-              <div key={`label-${p}`} style={{
+            <React.Fragment key={`row-${p}`}>
+              <div style={{
                 fontWeight: 700,
                 padding: '0.875rem 0.75rem',
                 color: 'white',
@@ -257,7 +257,7 @@ const Matriz = ({ isDarkMode, risksWithControl }) => {
                   </div>
                 );
               })}
-            </>
+            </React.Fragment>
           ))}
         </div>
 
