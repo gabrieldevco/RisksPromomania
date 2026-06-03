@@ -163,14 +163,16 @@ const ResponseCard = ({ risk }) => {
 };
 
 const Respuesta = () => {
-  // Solo mostrar riesgos de nivel Alto y Crítico
-  const highAndCriticalRisks = risks.filter(r => r.level >= 10);
+  // Mostrar riesgos de nivel Alto, Crítico + R08 y R10 (relevantes para cronograma e infraestructura)
+  const highAndCriticalRisks = risks.filter(r => 
+    r.level >= 10 || r.id === 'R08' || r.id === 'R10'
+  );
 
   return (
     <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem 3rem' }}>
       <div className="section-header">
         <h1>Plan de <span>Respuesta</span></h1>
-        <p>FASE 4: Estrategias de respuesta para riesgos de nivel Alto y Crítico</p>
+        <p>FASE 4: Estrategias de respuesta para riesgos Alto, Crítico y estratégicos (cronograma e infraestructura)</p>
       </div>
 
       <div style={{

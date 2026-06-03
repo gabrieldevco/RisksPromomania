@@ -17,12 +17,12 @@ const frequencies = {
 };
 
 const nextReviews = {
-  'Diaria': '2026-07-15',
+  'Diaria': '2026-08-15',
   'Continua': 'Automático',
-  'Semanal': '2026-07-22',
-  'Mensual': '2026-08-01',
-  'Trimestral': '2026-09-30',
-  'Semestral': '2026-12-31'
+  'Semanal': '2026-08-22',
+  'Mensual': '2026-09-01',
+  'Trimestral': '2026-10-30',
+  'Semestral': '2026-12-15'
 };
 
 const Monitoreo = () => {
@@ -128,8 +128,9 @@ const Monitoreo = () => {
         {[
           { icon: Clock, color: '#DC2626', title: 'Revisión Diaria', items: ['Monitoreo de uptime', 'Alertas de seguridad', 'Dashboard de métricas'] },
           { icon: Clock, color: '#F97316', title: 'Revisión Semanal', items: ['Publicaciones moderadas', 'Avance del proyecto', 'Tickets críticos'] },
-          { icon: Clock, color: '#6B21A8', title: 'Revisión Mensual', items: ['Métricas de negocio', 'Retención de talento', 'Nuevos riesgos'] },
-          { icon: Clock, color: '#7C3AED', title: 'Revisión Trimestral', items: ['Auditoría de seguridad', 'Cumplimiento normativo', 'Actualización del plan'] }
+          { icon: Clock, color: '#6B21A8', title: 'Revisión Mensual', items: ['Métricas de negocio', 'Escasez de talento técnico', 'Nuevos riesgos'] },
+          { icon: Clock, color: '#7C3AED', title: 'Revisión Trimestral', items: ['Auditoría de seguridad', 'Cumplimiento normativo', 'Preparación lanzamiento 30 Nov'] },
+          { icon: Clock, color: '#16A34A', title: 'Hito: Lanzamiento', items: ['Despliegue producción 30 Nov', 'Monitoreo post-lanzamiento', 'Cierre del proyecto'] }
         ].map((section, i) => (
           <div key={i} style={{
             background: 'var(--bg-card)',
