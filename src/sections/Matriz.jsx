@@ -129,7 +129,7 @@ const Matriz = ({ isDarkMode }) => {
       </div>
 
       {/* Tooltip */}
-      {hoveredCell && hoveredCell.risks.length > 0 && (
+      {hoveredCell && (
         <div style={{
           position: 'fixed',
           left: tooltipPosition.x,
@@ -163,67 +163,94 @@ const Matriz = ({ isDarkMode }) => {
             }}>
               Nivel {hoveredCell.level}
             </span>
-            <span style={{ 
-              fontSize: '0.875rem', 
-              fontWeight: 600, 
-              color: isDarkMode ? '#F9FAFB' : '#111827' 
+            <span style={{
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              color: isDarkMode ? '#F9FAFB' : '#111827'
             }}>
               {getZoneLabel(hoveredCell.zone)}
             </span>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            {hoveredCell.risks.map(risk => (
-              <div key={risk.id} style={{
-                padding: '0.5rem',
-                background: isDarkMode ? '#111827' : '#F9FAFB',
-                borderRadius: '8px'
-              }}>
-                <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '0.5rem',
-                  marginBottom: '0.25rem'
-                }}>
-                  <span style={{
-                    fontSize: '0.6875rem',
-                    fontWeight: 700,
-                    color: '#6B21A8',
-                    background: isDarkMode ? '#374151' : '#F3E8FF',
-                    padding: '0.125rem 0.375rem',
-                    borderRadius: '4px'
-                  }}>
-                    {risk.id}
-                  </span>
-                  <span style={{ 
-                    fontSize: '0.8125rem', 
-                    fontWeight: 600, 
-                    color: isDarkMode ? '#F9FAFB' : '#111827'
-                  }}>
-                    {risk.name}
-                  </span>
-                </div>
-                <p style={{ 
-                  fontSize: '0.75rem', 
-                  color: isDarkMode ? '#9CA3AF' : '#6B7280',
-                  margin: 0,
-                  lineHeight: 1.4
-                }}>
-                  {risk.description.substring(0, 80)}...
-                </p>
-                <div style={{
-                  display: 'flex',
-                  gap: '0.5rem',
-                  marginTop: '0.5rem',
-                  fontSize: '0.6875rem',
-                  color: isDarkMode ? '#D1D5DB' : '#6B7280'
-                }}>
-                  <span>Prob: {risk.probability}</span>
-                  <span>•</span>
-                  <span>Imp: {risk.impact}</span>
-                </div>
-              </div>
-            ))}
+          <div style={{
+            display: 'flex',
+            gap: '0.5rem',
+            marginBottom: '0.75rem',
+            fontSize: '0.75rem',
+            color: isDarkMode ? '#D1D5DB' : '#6B7280'
+          }}>
+            <span>Probabilidad: {hoveredCell.p}</span>
+            <span>•</span>
+            <span>Impacto: {hoveredCell.i}</span>
           </div>
+          {hoveredCell.risks.length > 0 ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              {hoveredCell.risks.map(risk => (
+                <div key={risk.id} style={{
+                  padding: '0.5rem',
+                  background: isDarkMode ? '#111827' : '#F9FAFB',
+                  borderRadius: '8px'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    marginBottom: '0.25rem'
+                  }}>
+                    <span style={{
+                      fontSize: '0.6875rem',
+                      fontWeight: 700,
+                      color: '#6B21A8',
+                      background: isDarkMode ? '#374151' : '#F3E8FF',
+                      padding: '0.125rem 0.375rem',
+                      borderRadius: '4px'
+                    }}>
+                      {risk.id}
+                    </span>
+                    <span style={{
+                      fontSize: '0.8125rem',
+                      fontWeight: 600,
+                      color: isDarkMode ? '#F9FAFB' : '#111827'
+                    }}>
+                      {risk.name}
+                    </span>
+                  </div>
+                  <p style={{
+                    fontSize: '0.75rem',
+                    color: isDarkMode ? '#9CA3AF' : '#6B7280',
+                    margin: 0,
+                    lineHeight: 1.4
+                  }}>
+                    {risk.description.substring(0, 80)}...
+                  </p>
+                  <div style={{
+                    display: 'flex',
+                    gap: '0.5rem',
+                    marginTop: '0.5rem',
+                    fontSize: '0.6875rem',
+                    color: isDarkMode ? '#D1D5DB' : '#6B7280'
+                  }}>
+                    <span>Prob: {risk.probability}</span>
+                    <span>•</span>
+                    <span>Imp: {risk.impact}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{
+              padding: '0.75rem',
+              background: isDarkMode ? '#111827' : '#F9FAFB',
+              borderRadius: '8px',
+              textAlign: 'center'
+            }}>
+              <span style={{
+                fontSize: '0.8125rem',
+                color: isDarkMode ? '#9CA3AF' : '#6B7280'
+              }}>
+                No hay riesgos asignados a esta celda
+              </span>
+            </div>
+          )}
           {/* Arrow */}
           <div style={{
             position: 'absolute',

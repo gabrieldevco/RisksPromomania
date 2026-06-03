@@ -1,5 +1,5 @@
 import Badge from './Badge';
-import ControlSlider from './ControlSlider';
+import ControlManager from './ControlManager';
 import MitigationDisplay from './MitigationDisplay';
 import { getZoneLabel, getZoneColor } from '../data/risks';
 import { Shield, AlertCircle } from 'lucide-react';
@@ -187,8 +187,8 @@ const RiskCard = ({ risk, onControlChange }) => {
         </div>
       )}
 
-      {/* Slider de Control */}
-      <ControlSlider risk={risk} onControlChange={onControlChange} />
+      {/* Gestión de Controles */}
+      <ControlManager risk={risk} onControlChange={onControlChange} />
 
       {/* Display de Mitigación */}
       <MitigationDisplay risk={risk} />

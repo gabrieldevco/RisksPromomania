@@ -10,12 +10,20 @@ const Riesgos = () => {
     risks.map(risk => ({ ...risk, controlLevel: 1, residualImpact: risk.impact, residualLevel: risk.level, residualZone: risk.zone }))
   );
 
-  // Manejar cambio de nivel de control
-  const handleControlChange = (riskId, newControlLevel) => {
+  // Manejar cambio de nivel de control (ahora soporta objeto con datos completos o número)
+  const handleControlChange = (riskId, controlData) => {
     setRisksWithControl(prevRisks => 
       prevRisks.map(risk => {
         if (risk.id === riskId) {
-          return updateRiskControlLevel(risk, newControlLevel);
+          // Si es un número (formato antiguo), usar updateRiskControlLevel
+          if (typeof controlData === 'number') {
+            return updateRiskControlLevel(risk, controlData);
+          }
+          // Si es un objeto (nuevo formato), fusionar directamente
+          return {
+            ...risk,
+            ...controlData
+          };
         }
         return risk;
       })
@@ -64,9 +72,9 @@ const Riesgos = () => {
       }}>
         <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1.5rem', color: 'white', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <span style={{ background: 'rgba(255,255,255,0.2)', color: 'white', padding: '4px 12px', borderRadius: '8px', fontSize: '0.875rem' }}>
-            1-5
+            🛡️
           </span>
-          Sistema de Controles Dinámico
+          Sistema de Controles Detallados
         </h3>
         <div style={{
           display: 'grid',
@@ -74,8 +82,14 @@ const Riesgos = () => {
           gap: '1rem',
           marginBottom: '1.5rem'
         }}>
-          {Object.entries(controlLevels).map(([level, data]) => (
-            <div key={level} style={{
+          {[
+            { level: 1, label: 'Preventivo', icon: '🛡️', desc: 'Evita que el riesgo ocurra' },
+            { level: 2, label: 'Detectivo', icon: '🔍', desc: 'Identifica el riesgo ocurriendo' },
+            { level: 3, label: 'Correctivo', icon: '🔧', desc: 'Corrige el efecto del riesgo' },
+            { level: 4, label: 'Transferencia', icon: '🔄', desc: 'Transfiere el riesgo a terceros' },
+            { level: 5, label: 'Aceptación', icon: '✓', desc: 'Acepta el impacto del riesgo' }
+          ].map((type) => (
+            <div key={type.level} style={{
               background: 'var(--bg-card)',
               borderRadius: '12px',
               padding: '1rem',
@@ -83,10 +97,10 @@ const Riesgos = () => {
               border: '1px solid var(--border-color)',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
             }}>
-              <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#6B21A8' }}>{level}</div>
-              <div style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-primary)', marginTop: '0.25rem' }}>{data.label}</div>
+              <div style={{ fontSize: '1.5rem' }}>{type.icon}</div>
+              <div style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-primary)', marginTop: '0.25rem' }}>{type.label}</div>
               <div style={{ fontSize: '0.6875rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
-                {((1 - data.effectiveness) * 100).toFixed(0)}% efectivo
+                {type.desc}
               </div>
             </div>
           ))}
@@ -192,13 +206,13 @@ const Riesgos = () => {
             </ul>
           </div>
           <div style={{ background: 'var(--bg-card)', padding: '1.25rem', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-            <h4 style={{ fontSize: '0.9375rem', color: '#6B21A8', marginBottom: '0.75rem', fontWeight: 700 }}>Control (1-5)</h4>
+            <h4 style={{ fontSize: '0.9375rem', color: '#6B21A8', marginBottom: '0.75rem', fontWeight: 700 }}>Impacto del Control (1-5)</h4>
             <ul style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.8, listStyle: 'none', padding: 0 }}>
-              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>1</span><span style={{ color: 'var(--text-muted)' }}>Nunca (0%)</span></li>
-              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>2</span><span style={{ color: 'var(--text-muted)' }}>Rara vez (20%)</span></li>
-              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>3</span><span style={{ color: 'var(--text-muted)' }}>Ocasional (40%)</span></li>
-              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>4</span><span style={{ color: 'var(--text-muted)' }}>Frecuente (60%)</span></li>
-              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>5</span><span style={{ color: 'var(--text-muted)' }}>Siempre (80%)</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>1</span><span style={{ color: 'var(--text-muted)' }}>Muy Bajo (0%)</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>2</span><span style={{ color: 'var(--text-muted)' }}>Bajo (20%)</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>3</span><span style={{ color: 'var(--text-muted)' }}>Medio (40%)</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>4</span><span style={{ color: 'var(--text-muted)' }}>Alto (60%)</span></li>
+              <li style={{ display: 'flex', justifyContent: 'space-between' }}><span>5</span><span style={{ color: 'var(--text-muted)' }}>Muy Alto (80%)</span></li>
             </ul>
           </div>
           <div style={{ background: 'var(--bg-card)', padding: '1.25rem', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
