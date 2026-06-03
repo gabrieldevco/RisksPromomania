@@ -251,304 +251,192 @@ const ControlManager = ({ risk, onControlChange }) => {
         </div>
       )}
 
-      {/* Formulario para agregar control - MEJORADO VISUALMENTE */}
+      {/* Formulario para agregar control - COMPACTO */}
       {showAddForm ? (
         <div style={{
-          background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-hover) 100%)',
-          borderRadius: '20px',
-          padding: '1.5rem',
+          background: 'var(--bg-card)',
+          borderRadius: '16px',
+          padding: '1rem',
           border: '2px solid #6B21A8',
-          boxShadow: '0 8px 30px rgba(107, 33, 168, 0.15), 0 0 0 4px rgba(107, 33, 168, 0.05)',
-          animation: 'fadeInUp 0.3s ease-out'
+          boxShadow: '0 4px 20px rgba(107, 33, 168, 0.15)'
         }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.75rem',
-            marginBottom: '1.25rem',
-            paddingBottom: '0.75rem',
-            borderBottom: '1px solid var(--border-color)'
+            gap: '0.5rem',
+            marginBottom: '0.75rem'
           }}>
-            <div style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '12px',
-              background: 'linear-gradient(135deg, #6B21A8, #A855F7)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
+            <Sparkles size={18} color="#6B21A8" />
+            <h4 style={{
+              fontSize: '0.9375rem',
+              fontWeight: 700,
+              color: '#6B21A8',
+              margin: 0
             }}>
-              <Sparkles size={20} color="white" />
-            </div>
-            <div>
-              <h4 style={{
-                fontSize: '1rem',
-                fontWeight: 700,
-                color: 'var(--text-primary)',
-                margin: 0
-              }}>
-                Nuevo Control
-              </h4>
-              <p style={{
-                fontSize: '0.75rem',
-                color: 'var(--text-muted)',
-                margin: 0
-              }}>
-                Configure el control a aplicar
-              </p>
-            </div>
+              Nuevo Control
+            </h4>
           </div>
           
-          {/* Tipo de control - BOTONES VISUALES MEJORADOS */}
-          <div style={{ marginBottom: '1.25rem' }}>
+          {/* Tipo de control - BOTONES COMPACTOS EN FILA */}
+          <div style={{ marginBottom: '0.75rem' }}>
             <label style={{
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              color: 'var(--text-secondary)',
+              fontSize: '0.6875rem',
+              fontWeight: 600,
+              color: 'var(--text-muted)',
               display: 'block',
-              marginBottom: '0.75rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em'
+              marginBottom: '0.5rem'
             }}>
-              Tipo de Control
+              Tipo
             </label>
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-              gap: '0.5rem'
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '0.375rem'
             }}>
               {controlTypes.map(type => (
                 <button
                   key={type.value}
                   onClick={() => setNewControl({ ...newControl, type: type.value })}
                   style={{
-                    padding: '0.875rem',
-                    borderRadius: '12px',
+                    padding: '0.5rem 0.75rem',
+                    borderRadius: '8px',
                     border: newControl.type === type.value ? `2px solid ${type.color}` : '1px solid var(--border-color)',
                     background: newControl.type === type.value ? `${type.color}15` : 'var(--bg-hover)',
                     cursor: 'pointer',
                     transition: 'all 0.2s ease',
                     display: 'flex',
-                    flexDirection: 'column',
                     alignItems: 'center',
-                    gap: '0.375rem'
+                    gap: '0.375rem',
+                    fontSize: '0.75rem',
+                    fontWeight: newControl.type === type.value ? 600 : 500,
+                    color: newControl.type === type.value ? type.color : 'var(--text-primary)'
                   }}
                 >
-                  <span style={{ fontSize: '1.5rem' }}>{type.icon}</span>
-                  <span style={{
-                    fontSize: '0.75rem',
-                    fontWeight: newControl.type === type.value ? 700 : 500,
-                    color: newControl.type === type.value ? type.color : 'var(--text-primary)'
-                  }}>
-                    {type.label}
-                  </span>
+                  <span>{type.icon}</span>
+                  <span>{type.label}</span>
                 </button>
               ))}
             </div>
-            {newControl.type && (
-              <p style={{
-                marginTop: '0.5rem',
-                fontSize: '0.75rem',
-                color: 'var(--text-muted)',
-                fontStyle: 'italic'
-              }}>
-                {controlTypes.find(t => t.value === newControl.type)?.desc}
-              </p>
-            )}
           </div>
 
-          {/* Descripción - ESTILO MEJORADO */}
-          <div style={{ marginBottom: '1.25rem' }}>
+          {/* Descripción - COMPACTA */}
+          <div style={{ marginBottom: '0.75rem' }}>
             <label style={{
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              color: 'var(--text-secondary)',
+              fontSize: '0.6875rem',
+              fontWeight: 600,
+              color: 'var(--text-muted)',
               display: 'block',
-              marginBottom: '0.5rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em'
+              marginBottom: '0.375rem'
             }}>
-              Descripción del Control
+              Descripción
             </label>
             <textarea
               value={newControl.description}
               onChange={(e) => setNewControl({ ...newControl, description: e.target.value })}
-              placeholder="Describa detalladamente cómo se implementará este control, recursos necesarios, responsables y cronograma..."
-              rows={3}
+              placeholder="Describa cómo se aplicará el control..."
+              rows={2}
               style={{
                 width: '100%',
-                padding: '0.875rem',
-                borderRadius: '12px',
-                border: '2px solid var(--border-color)',
+                padding: '0.625rem',
+                borderRadius: '8px',
+                border: '1px solid var(--border-color)',
                 background: 'var(--bg-primary)',
                 color: 'var(--text-primary)',
-                fontSize: '0.875rem',
+                fontSize: '0.8125rem',
                 resize: 'vertical',
                 fontFamily: 'inherit',
-                transition: 'all 0.2s ease',
                 outline: 'none'
-              }}
-              onFocus={(e) => {
-                e.target.style.borderColor = '#6B21A8';
-                e.target.style.boxShadow = '0 0 0 3px rgba(107, 33, 168, 0.1)';
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = 'var(--border-color)';
-                e.target.style.boxShadow = 'none';
               }}
             />
           </div>
 
-          {/* Efectividad - SLIDER MEJORADO VISUALMENTE */}
-          <div style={{ marginBottom: '1.5rem' }}>
+          {/* Efectividad - COMPACTA */}
+          <div style={{ marginBottom: '0.75rem' }}>
             <div style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              marginBottom: '0.75rem'
+              marginBottom: '0.375rem'
             }}>
               <label style={{
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                color: 'var(--text-secondary)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em'
+                fontSize: '0.6875rem',
+                fontWeight: 600,
+                color: 'var(--text-muted)'
               }}>
-                Efectividad del Control
+                Efectividad
               </label>
               <span style={{
-                padding: '0.375rem 0.75rem',
-                background: 'linear-gradient(135deg, #6B21A8, #A855F7)',
+                padding: '0.25rem 0.5rem',
+                background: '#6B21A8',
                 color: 'white',
-                borderRadius: '8px',
-                fontSize: '0.75rem',
-                fontWeight: 700
+                borderRadius: '6px',
+                fontSize: '0.6875rem',
+                fontWeight: 600
               }}>
-                {getEffectivenessLabel(newControl.effectiveness)}
+                {newControl.effectiveness}/5
               </span>
             </div>
-            
-            <div style={{
-              padding: '1rem',
-              background: 'var(--bg-primary)',
-              borderRadius: '12px',
-              border: '2px solid var(--border-color)'
-            }}>
-              <input
-                type="range"
-                min="1"
-                max="5"
-                step="1"
-                value={newControl.effectiveness}
-                onChange={(e) => setNewControl({ ...newControl, effectiveness: parseInt(e.target.value) })}
-                style={{
-                  width: '100%',
-                  height: '10px',
-                  borderRadius: '5px',
-                  background: `linear-gradient(to right, #6B21A8 0%, #A855F7 ${(newControl.effectiveness - 1) * 25}%, #E5E7EB ${(newControl.effectiveness - 1) * 25}%, #E5E7EB 100%)`,
-                  outline: 'none',
-                  cursor: 'pointer',
-                  appearance: 'none',
-                  WebkitAppearance: 'none'
-                }}
-              />
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                marginTop: '0.75rem'
-              }}>
-                {[
-                  { level: 1, label: 'Muy Bajo', icon: '○' },
-                  { level: 2, label: 'Bajo', icon: '◐' },
-                  { level: 3, label: 'Medio', icon: '◑' },
-                  { level: 4, label: 'Alto', icon: '◒' },
-                  { level: 5, label: 'Muy Alto', icon: '●' }
-                ].map(item => (
-                  <div key={item.level} style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '0.25rem'
-                  }}>
-                    <span style={{
-                      fontSize: '0.625rem',
-                      color: newControl.effectiveness >= item.level ? '#6B21A8' : 'var(--text-muted)',
-                      fontWeight: newControl.effectiveness === item.level ? 700 : 400
-                    }}>
-                      {item.icon}
-                    </span>
-                    <span style={{
-                      fontSize: '0.625rem',
-                      color: newControl.effectiveness === item.level ? '#6B21A8' : 'var(--text-muted)',
-                      fontWeight: newControl.effectiveness === item.level ? 700 : 400
-                    }}>
-                      {item.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <input
+              type="range"
+              min="1"
+              max="5"
+              step="1"
+              value={newControl.effectiveness}
+              onChange={(e) => setNewControl({ ...newControl, effectiveness: parseInt(e.target.value) })}
+              style={{
+                width: '100%',
+                height: '8px',
+                borderRadius: '4px',
+                background: `linear-gradient(to right, #6B21A8 0%, #A855F7 ${(newControl.effectiveness - 1) * 25}%, #E5E7EB ${(newControl.effectiveness - 1) * 25}%, #E5E7EB 100%)`,
+                outline: 'none',
+                cursor: 'pointer',
+                appearance: 'none',
+                WebkitAppearance: 'none'
+              }}
+            />
           </div>
 
-          {/* Botones - ESTILO MEJORADO */}
-          <div style={{ display: 'flex', gap: '0.75rem' }}>
+          {/* Botones - COMPACTOS */}
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
             <button
               onClick={handleAddControl}
               disabled={!newControl.type || !newControl.description.trim()}
               style={{
                 flex: 1,
-                padding: '0.875rem 1.25rem',
+                padding: '0.625rem 1rem',
                 background: (!newControl.type || !newControl.description.trim()) 
                   ? 'var(--text-muted)' 
-                  : 'linear-gradient(135deg, #6B21A8 0%, #A855F7 100%)',
+                  : '#6B21A8',
                 color: 'white',
                 border: 'none',
-                borderRadius: '12px',
-                fontSize: '0.9375rem',
-                fontWeight: 700,
+                borderRadius: '8px',
+                fontSize: '0.8125rem',
+                fontWeight: 600,
                 cursor: (!newControl.type || !newControl.description.trim()) ? 'not-allowed' : 'pointer',
                 opacity: (!newControl.type || !newControl.description.trim()) ? 0.5 : 1,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '0.5rem',
-                boxShadow: (!newControl.type || !newControl.description.trim()) 
-                  ? 'none' 
-                  : '0 4px 14px rgba(107, 33, 168, 0.35)',
-                transition: 'all 0.2s ease'
+                gap: '0.375rem'
               }}
             >
-              <Check size={18} strokeWidth={2.5} />
-              Aplicar Control
+              <Check size={16} />
+              Aplicar
             </button>
             <button
               onClick={() => setShowAddForm(false)}
               style={{
-                padding: '0.875rem 1.25rem',
+                padding: '0.625rem 1rem',
                 background: 'var(--bg-hover)',
                 color: 'var(--text-primary)',
-                border: '2px solid var(--border-color)',
-                borderRadius: '12px',
-                fontSize: '0.875rem',
+                border: '1px solid var(--border-color)',
+                borderRadius: '8px',
+                fontSize: '0.8125rem',
                 fontWeight: 600,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.borderColor = '#DC2626';
-                e.target.style.color = '#DC2626';
-                e.target.style.background = 'rgba(220, 38, 38, 0.1)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.borderColor = 'var(--border-color)';
-                e.target.style.color = 'var(--text-primary)';
-                e.target.style.background = 'var(--bg-hover)';
+                cursor: 'pointer'
               }}
             >
-              <X size={18} />
+              <X size={16} />
             </button>
           </div>
         </div>
@@ -557,45 +445,28 @@ const ControlManager = ({ risk, onControlChange }) => {
           onClick={() => setShowAddForm(true)}
           style={{
             width: '100%',
-            padding: '1rem 1.5rem',
+            padding: '0.75rem 1rem',
             background: 'transparent',
             border: '2px dashed #6B21A8',
-            borderRadius: '16px',
+            borderRadius: '12px',
             color: '#6B21A8',
-            fontSize: '0.9375rem',
-            fontWeight: 700,
+            fontSize: '0.875rem',
+            fontWeight: 600,
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '0.75rem',
-            transition: 'all 0.3s ease'
+            gap: '0.5rem'
           }}
           onMouseEnter={(e) => {
-            e.target.style.borderStyle = 'solid';
-            e.target.style.background = 'linear-gradient(135deg, rgba(107, 33, 168, 0.1), rgba(168, 85, 247, 0.1))';
-            e.target.style.transform = 'translateY(-2px)';
-            e.target.style.boxShadow = '0 8px 20px rgba(107, 33, 168, 0.15)';
+            e.target.style.background = 'rgba(107, 33, 168, 0.05)';
           }}
           onMouseLeave={(e) => {
-            e.target.style.borderStyle = 'dashed';
             e.target.style.background = 'transparent';
-            e.target.style.transform = 'translateY(0)';
-            e.target.style.boxShadow = 'none';
           }}
         >
-          <div style={{
-            width: '32px',
-            height: '32px',
-            borderRadius: '8px',
-            background: 'linear-gradient(135deg, #6B21A8, #A855F7)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            <Plus size={18} color="white" />
-          </div>
-          Agregar Nuevo Control
+          <Plus size={18} />
+          Agregar Control
         </button>
       )}
 
