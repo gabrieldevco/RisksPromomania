@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { risks, getZoneLabel, updateRiskControlLevel, controlLevels, getRiskZone } from '../data/risks';
 import RiskCard from '../components/RiskCard';
 import { Plus, X, Check } from 'lucide-react';
@@ -6,6 +6,22 @@ import { Plus, X, Check } from 'lucide-react';
 const Riesgos = () => {
   const [filter, setFilter] = useState('all');
   const [showAddRiskModal, setShowAddRiskModal] = useState(false);
+
+  // Controlar scrollbar del body cuando el modal está abierto
+  useEffect(() => {
+    if (showAddRiskModal) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = 'var(--scrollbar-width, 0px)';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    };
+  }, [showAddRiskModal]);
   
   // Inicializar riesgos con controlLevel = 1
   const [risksWithControl, setRisksWithControl] = useState(() => 
