@@ -14,13 +14,12 @@ const ControlManager = ({ risk, onControlChange }) => {
     effectiveness: 3
   });
 
-  // Tipos de control predefinidos con iconos Lucide
+  // Tipos de control predefinidos con iconos Lucide (sin Aceptación)
   const controlTypes = [
     { value: 'preventivo', label: 'Preventivo', icon: '🛡️', color: '#22C55E', desc: 'Evita que el riesgo ocurra' },
     { value: 'detectivo', label: 'Detectivo', icon: '🔍', color: '#3B82F6', desc: 'Identifica el riesgo cuando ocurre' },
     { value: 'correctivo', label: 'Correctivo', icon: '🔧', color: '#F97316', desc: 'Corrige el efecto del riesgo' },
-    { value: 'transferencia', label: 'Transferencia', icon: '🔄', color: '#8B5CF6', desc: 'Traslada el riesgo a terceros' },
-    { value: 'aceptacion', label: 'Aceptación', icon: '✓', color: '#6B7280', desc: 'Asume las consecuencias' }
+    { value: 'transferencia', label: 'Transferencia', icon: '🔄', color: '#8B5CF6', desc: 'Traslada el riesgo a terceros' }
   ];
 
   // Calcular impacto residual basado en controles (acumulativo, no promedio)
@@ -394,6 +393,71 @@ const ControlManager = ({ risk, onControlChange }) => {
                 WebkitAppearance: 'none'
               }}
             />
+          </div>
+
+          {/* Vista previa de reducción */}
+          <div style={{
+            marginBottom: '0.75rem',
+            padding: '0.75rem',
+            background: 'rgba(107, 33, 168, 0.08)',
+            borderRadius: '10px',
+            border: '1px solid rgba(107, 33, 168, 0.2)'
+          }}>
+            <div style={{
+              fontSize: '0.6875rem',
+              fontWeight: 600,
+              color: '#6B21A8',
+              marginBottom: '0.5rem',
+              textAlign: 'center'
+            }}>
+              Reducción estimada con este control
+            </div>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr auto 1fr',
+              gap: '0.5rem',
+              alignItems: 'center'
+            }}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{
+                  fontSize: '0.625rem',
+                  color: 'var(--text-muted)',
+                  marginBottom: '0.125rem'
+                }}>Impacto</div>
+                <div style={{
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  color: getZoneColor(risk.zone)
+                }}>{risk.impact}</div>
+              </div>
+              <div style={{
+                fontSize: '0.875rem',
+                color: '#6B21A8'
+              }}>→</div>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{
+                  fontSize: '0.625rem',
+                  color: 'var(--text-muted)',
+                  marginBottom: '0.125rem'
+                }}>Residual</div>
+                <div style={{
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  color: '#6B21A8'
+                }}>
+                  {Math.max(1, Math.round(risk.impact * (1 - ((newControl.effectiveness - 1) / 4 * 0.8))))}
+                </div>
+              </div>
+            </div>
+            <div style={{
+              marginTop: '0.5rem',
+              textAlign: 'center',
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              color: '#16a34a'
+            }}>
+              ↓ {((newControl.effectiveness - 1) / 4 * 80).toFixed(0)}% reducción
+            </div>
           </div>
 
           {/* Botones - COMPACTOS */}
