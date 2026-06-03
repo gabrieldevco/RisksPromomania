@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import Navbar from './components/Navbar';
 import Dashboard from './sections/Dashboard';
 import Riesgos from './sections/Riesgos';
@@ -7,25 +7,100 @@ import Respuesta from './sections/Respuesta';
 import Monitoreo from './sections/Monitoreo';
 import { ThemeProvider } from './context/ThemeContext';
 import { useTheme } from './hooks/useTheme';
+import { risks } from './data/risks';
 
 const AppContent = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
   const { isDarkMode, themeColors } = useTheme();
 
+  // Estado compartido de riesgos con controles aplicados
+  const [risksWithControl, setRisksWithControl] = useState(() => 
+    risks.map(risk => ({ 
+      ...risk, 
+      controlLevel: 1, 
+      residualImpact: risk.impact, 
+      residualLevel: risk.level, 
+      residualZone: risk.zone 
+    }))
+  );
+
+  // Función para actualizar controles (compartida entre componentes)
+  const handleControlChange = useCallback((riskId, controlData) => {
+    setRisksWithControl(prevRisks =>
+      prevRisks.map(risk => {
+        if (risk.id === riskId) {
+          if (typeof controlData === 'number') {
+            // Calcular impacto residual basado en nivel de control
+            const reductionFactor = (controlData - 1) * 0.2;
+            const newResidualImpact = Math.max(1, Math.round(risk.impact * (1 - reductionFactor)));
+            const newResidualLevel = risk.probability * newResidualImpact;
+            const newResidualZone = newResidualLevel >= 17 ? 'critical' : 
+                                   newResidualLevel >= 10 ? 'high' : 
+                                   newResidualLevel >= 5 ? 'medium' : 'low';
+            
+            return {
+              ...risk,
+              controlLevel: controlData,
+              residualImpact: newResidualImpact,
+              residualLevel: newResidualLevel,
+              residualZone: newResidualZone
+            };
+          }
+          return { ...risk, ...controlData };
+        }
+        return risk;
+      })
+    );
+  }, []);
+
+  // Calcular estadísticas basadas en riesgos con controles aplicados
+  const riskStats = useMemo(() => {
+    return {
+      critical: risksWithControl.filter(r => r.residualZone === 'critical').length,
+      high: risksWithControl.filter(r => r.residualZone === 'high').length,
+      medium: risksWithControl.filter(r => r.residualZone === 'medium').length,
+      low: risksWithControl.filter(r => r.residualZone === 'low').length
+    };
+  }, [risksWithControl]);
+
   const renderSection = () => {
     switch (activeSection) {
       case 'dashboard':
-        return <Dashboard setActiveSection={setActiveSection} isDarkMode={isDarkMode} />;
+        return <Dashboard 
+          setActiveSection={setActiveSection} 
+          isDarkMode={isDarkMode} 
+          risksWithControl={risksWithControl}
+          riskStats={riskStats}
+        />;
       case 'riesgos':
-        return <Riesgos isDarkMode={isDarkMode} />;
+        return <Riesgos 
+          isDarkMode={isDarkMode} 
+          risksWithControl={risksWithControl}
+          setRisksWithControl={setRisksWithControl}
+          handleControlChange={handleControlChange}
+        />;
       case 'matriz':
-        return <Matriz isDarkMode={isDarkMode} />;
+        return <Matriz 
+          isDarkMode={isDarkMode} 
+          risksWithControl={risksWithControl}
+        />;
       case 'respuesta':
-        return <Respuesta isDarkMode={isDarkMode} />;
+        return <Respuesta 
+          isDarkMode={isDarkMode} 
+          risksWithControl={risksWithControl}
+        />;
       case 'monitoreo':
-        return <Monitoreo isDarkMode={isDarkMode} />;
+        return <Monitoreo 
+          isDarkMode={isDarkMode} 
+          risksWithControl={risksWithControl}
+        />;
       default:
-        return <Dashboard setActiveSection={setActiveSection} isDarkMode={isDarkMode} />;
+        return <Dashboard 
+          setActiveSection={setActiveSection} 
+          isDarkMode={isDarkMode}
+          risksWithControl={risksWithControl}
+          riskStats={riskStats}
+        />;
     }
   };
 

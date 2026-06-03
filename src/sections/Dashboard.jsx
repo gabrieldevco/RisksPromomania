@@ -1,4 +1,4 @@
-import { risks, riskStats, getZoneColor } from '../data/risks';
+import { getZoneColor } from '../data/risks';
 import { AlertTriangle, Shield, Activity, TrendingUp, ArrowRight, Users, ShoppingBag, DollarSign, ShieldCheck, Zap } from 'lucide-react';
 
 const StatCard = ({ zone, value, label, icon: Icon, subtitle }) => {
@@ -49,8 +49,8 @@ const StatCard = ({ zone, value, label, icon: Icon, subtitle }) => {
   );
 };
 
-const Dashboard = ({ setActiveSection }) => {
-  const total = risks.length;
+const Dashboard = ({ setActiveSection, risksWithControl, riskStats }) => {
+  const total = risksWithControl.length;
 
   return (
     <div>

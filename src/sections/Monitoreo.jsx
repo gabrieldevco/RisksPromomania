@@ -1,5 +1,5 @@
-import { risks, getZoneColor } from '../data/risks';
-import { Clock, Activity } from 'lucide-react';
+import { getZoneColor, getZoneLabel } from '../data/risks';
+import { Clock, Activity, Shield, ArrowRight } from 'lucide-react';
 
 const frequencies = {
   'R02': 'Diaria',
@@ -25,7 +25,7 @@ const nextReviews = {
   'Semestral': '2026-12-15'
 };
 
-const Monitoreo = () => {
+const Monitoreo = ({ risksWithControl }) => {
   return (
     <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem 3rem' }}>
       <div className="section-header">
@@ -49,7 +49,7 @@ const Monitoreo = () => {
         }}>
           <thead>
             <tr>
-              {['ID', 'Riesgo', 'Indicador', 'Frecuencia', 'Responsable', 'Próxima Revisión'].map((header) => (
+              {['ID', 'Riesgo', 'Indicador', 'Frecuencia', 'Nivel Original', 'Nivel Actual', 'Responsable', 'Próxima Revisión'].map((header) => (
                 <th key={header} style={{
                   textAlign: 'left',
                   padding: '1rem',
@@ -65,10 +65,13 @@ const Monitoreo = () => {
             </tr>
           </thead>
           <tbody>
-            {risks.map(risk => {
+            {risksWithControl.map(risk => {
               const freq = frequencies[risk.id];
               const nextReview = nextReviews[freq];
-              const zoneColor = getZoneColor(risk.zone);
+              const zoneColor = getZoneColor(risk.residualZone);
+              const originalZoneColor = getZoneColor(risk.zone);
+              const hasControlApplied = risk.controlLevel > 1 || (risk.appliedControls && risk.appliedControls.length > 0);
+              const hasImproved = risk.residualZone !== risk.zone;
 
               return (
                 <tr key={risk.id} style={{ borderBottom: '1px solid var(--border-color)' }}>
@@ -78,7 +81,14 @@ const Monitoreo = () => {
                     fontWeight: 700,
                     color: '#6B21A8'
                   }}>{risk.id}</td>
-                  <td style={{ padding: '1rem', color: 'var(--text-primary)', fontWeight: 500 }}>{risk.name}</td>
+                  <td style={{ padding: '1rem', color: 'var(--text-primary)', fontWeight: 500 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      {risk.name}
+                      {hasControlApplied && (
+                        <Shield size={14} color="#22C55E" title="Controles aplicados" />
+                      )}
+                    </div>
+                  </td>
                   <td style={{ padding: '1rem', color: 'var(--text-secondary)', fontSize: '0.875rem' }}>{risk.indicator}</td>
                   <td style={{ padding: '1rem' }}>
                     <span style={{
@@ -95,6 +105,41 @@ const Monitoreo = () => {
                     }}>
                       {freq}
                     </span>
+                  </td>
+                  <td style={{ padding: '1rem' }}>
+                    <span style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      padding: '0.375rem 0.75rem',
+                      background: `${originalZoneColor}15`,
+                      color: originalZoneColor,
+                      borderRadius: '6px',
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                      textDecoration: hasImproved ? 'line-through' : 'none',
+                      opacity: hasImproved ? 0.6 : 1
+                    }}>
+                      {risk.level} - {getZoneLabel(risk.zone)}
+                    </span>
+                  </td>
+                  <td style={{ padding: '1rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      {hasImproved && <ArrowRight size={14} color="#22C55E" />}
+                      <span style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        padding: '0.375rem 0.75rem',
+                        background: `${zoneColor}15`,
+                        color: zoneColor,
+                        borderRadius: '6px',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        border: hasImproved ? `2px solid ${zoneColor}` : 'none'
+                      }}>
+                        {risk.residualLevel} - {getZoneLabel(risk.residualZone)}
+                      </span>
+                    </div>
                   </td>
                   <td style={{ padding: '1rem', color: 'var(--text-secondary)' }}>{risk.responsible}</td>
                   <td style={{ padding: '1rem' }}>

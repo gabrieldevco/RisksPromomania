@@ -162,7 +162,8 @@ const ResponseCard = ({ risk }) => {
   );
 };
 
-const Respuesta = () => {
+const Respuesta = ({ risksWithControl }) => {
+  const risks = risksWithControl || [];
   // Mostrar riesgos de nivel Alto, Crítico + R08 y R10 (relevantes para cronograma e infraestructura)
   const highAndCriticalRisks = risks.filter(r => 
     r.level >= 10 || r.id === 'R08' || r.id === 'R10'

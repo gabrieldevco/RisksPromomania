@@ -3,7 +3,7 @@ import { risks, getZoneLabel, updateRiskControlLevel, controlLevels, getRiskZone
 import RiskCard from '../components/RiskCard';
 import { Plus, X, Check } from 'lucide-react';
 
-const Riesgos = () => {
+const Riesgos = ({ risksWithControl, setRisksWithControl, handleControlChange }) => {
   const [filter, setFilter] = useState('all');
   const [showAddRiskModal, setShowAddRiskModal] = useState(false);
 
@@ -22,31 +22,6 @@ const Riesgos = () => {
       document.body.style.paddingRight = '';
     };
   }, [showAddRiskModal]);
-  
-  // Inicializar riesgos con controlLevel = 1
-  const [risksWithControl, setRisksWithControl] = useState(() => 
-    risks.map(risk => ({ ...risk, controlLevel: 1, residualImpact: risk.impact, residualLevel: risk.level, residualZone: risk.zone }))
-  );
-
-  // Manejar cambio de nivel de control (ahora soporta objeto con datos completos o número)
-  const handleControlChange = (riskId, controlData) => {
-    setRisksWithControl(prevRisks =>
-      prevRisks.map(risk => {
-        if (risk.id === riskId) {
-          // Si es un número (formato antiguo), usar updateRiskControlLevel
-          if (typeof controlData === 'number') {
-            return updateRiskControlLevel(risk, controlData);
-          }
-          // Si es un objeto (nuevo formato), fusionar directamente
-          return {
-            ...risk,
-            ...controlData
-          };
-        }
-        return risk;
-      })
-    );
-  };
 
   // Estado para formulario de nuevo riesgo
   const [newRisk, setNewRisk] = useState({

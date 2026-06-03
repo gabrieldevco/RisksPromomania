@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { risks, getRiskZone, getZoneColor, getZoneLabel } from '../data/risks';
 import { AlertTriangle, Target, Shield, Eye, Info } from 'lucide-react';
 
-const Matriz = ({ isDarkMode }) => {
+const Matriz = ({ isDarkMode, risksWithControl }) => {
+  // Usar riesgos con controles aplicados
+  const risks = risksWithControl || [];
   const [hoveredCell, setHoveredCell] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const [selectedZone, setSelectedZone] = useState(null);
