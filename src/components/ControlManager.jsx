@@ -393,6 +393,19 @@ const ControlManager = ({ risk, onControlChange }) => {
                 WebkitAppearance: 'none'
               }}
             />
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginTop: '0.375rem',
+              fontSize: '0.625rem',
+              color: 'var(--text-muted)'
+            }}>
+              <span>1-Nunca</span>
+              <span>2-Rara vez</span>
+              <span>3-Ocasional</span>
+              <span>4-Frecuente</span>
+              <span>5-Siempre</span>
+            </div>
           </div>
 
           {/* Vista previa de reducción */}
