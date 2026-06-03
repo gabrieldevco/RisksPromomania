@@ -1,9 +1,11 @@
 import { useState, useMemo } from 'react';
-import { risks, getZoneLabel, updateRiskControlLevel, controlLevels } from '../data/risks';
+import { risks, getZoneLabel, updateRiskControlLevel, controlLevels, getRiskZone } from '../data/risks';
 import RiskCard from '../components/RiskCard';
+import { Plus, X, Check } from 'lucide-react';
 
 const Riesgos = () => {
   const [filter, setFilter] = useState('all');
+  const [showAddRiskModal, setShowAddRiskModal] = useState(false);
   
   // Inicializar riesgos con controlLevel = 1
   const [risksWithControl, setRisksWithControl] = useState(() => 
@@ -12,7 +14,7 @@ const Riesgos = () => {
 
   // Manejar cambio de nivel de control (ahora soporta objeto con datos completos o número)
   const handleControlChange = (riskId, controlData) => {
-    setRisksWithControl(prevRisks => 
+    setRisksWithControl(prevRisks =>
       prevRisks.map(risk => {
         if (risk.id === riskId) {
           // Si es un número (formato antiguo), usar updateRiskControlLevel
@@ -28,6 +30,58 @@ const Riesgos = () => {
         return risk;
       })
     );
+  };
+
+  // Estado para formulario de nuevo riesgo
+  const [newRisk, setNewRisk] = useState({
+    name: '',
+    category: 'Seguridad',
+    description: '',
+    probability: 3,
+    impact: 3,
+    strategy: 'Mitigar',
+    responsible: ''
+  });
+
+  // Generar ID único para nuevo riesgo
+  const generateRiskId = () => {
+    const existingIds = risksWithControl.map(r => parseInt(r.id.replace('R', '')));
+    const maxId = Math.max(...existingIds, 0);
+    return `R${String(maxId + 1).padStart(2, '0')}`;
+  };
+
+  // Agregar nuevo riesgo
+  const handleAddRisk = () => {
+    if (!newRisk.name.trim() || !newRisk.description.trim()) return;
+
+    const level = newRisk.probability * newRisk.impact;
+    const zone = getRiskZone(level);
+
+    const risk = {
+      id: generateRiskId(),
+      ...newRisk,
+      frequency: 'Regular',
+      level,
+      zone,
+      controlLevel: 1,
+      residualImpact: newRisk.impact,
+      residualLevel: level,
+      residualZone: zone,
+      appliedControls: [],
+      actions: []
+    };
+
+    setRisksWithControl(prev => [...prev, risk]);
+    setNewRisk({
+      name: '',
+      category: 'Seguridad',
+      description: '',
+      probability: 3,
+      impact: 3,
+      strategy: 'Mitigar',
+      responsible: ''
+    });
+    setShowAddRiskModal(false);
   };
 
   // Filtrar riesgos
@@ -130,32 +184,58 @@ const Riesgos = () => {
         </div>
       </div>
 
-      {/* Filtros */}
+      {/* Filtros y Botón de Nuevo Riesgo */}
       <div style={{
         display: 'flex',
         flexWrap: 'wrap',
         gap: '0.75rem',
-        marginBottom: '2rem'
+        marginBottom: '2rem',
+        alignItems: 'center',
+        justifyContent: 'space-between'
       }}>
-        {filters.map(f => (
-          <button
-            key={f.id}
-            onClick={() => setFilter(f.id)}
-            style={{
-              padding: '0.625rem 1.25rem',
-              border: filter === f.id ? '2px solid #6B21A8' : '1px solid var(--border-color)',
-              borderRadius: '10px',
-              background: filter === f.id ? '#6B21A8' : 'var(--bg-card)',
-              color: filter === f.id ? 'white' : 'var(--text-primary)',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              boxShadow: filter === f.id ? '0 4px 12px rgba(107, 33, 168, 0.2)' : '0 2px 4px rgba(0,0,0,0.05)'
-            }}
-          >
-            {f.label}
-          </button>
-        ))}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+          {filters.map(f => (
+            <button
+              key={f.id}
+              onClick={() => setFilter(f.id)}
+              style={{
+                padding: '0.625rem 1.25rem',
+                border: filter === f.id ? '2px solid #6B21A8' : '1px solid var(--border-color)',
+                borderRadius: '10px',
+                background: filter === f.id ? '#6B21A8' : 'var(--bg-card)',
+                color: filter === f.id ? 'white' : 'var(--text-primary)',
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: filter === f.id ? '0 4px 12px rgba(107, 33, 168, 0.2)' : '0 2px 4px rgba(0,0,0,0.05)'
+              }}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+
+        <button
+          onClick={() => setShowAddRiskModal(true)}
+          style={{
+            padding: '0.625rem 1.25rem',
+            background: '#16A34A',
+            color: 'white',
+            border: 'none',
+            borderRadius: '10px',
+            fontSize: '0.875rem',
+            fontWeight: 600,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            boxShadow: '0 4px 12px rgba(22, 163, 74, 0.3)',
+            transition: 'all 0.3s ease'
+          }}
+        >
+          <Plus size={18} />
+          Registrar Nuevo Riesgo
+        </button>
       </div>
 
       {/* Grid de riesgos */}
@@ -226,6 +306,349 @@ const Riesgos = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal para Registrar Nuevo Riesgo */}
+      {showAddRiskModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0, 0, 0, 0.6)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+          padding: '1rem'
+        }}>
+          <div style={{
+            background: 'var(--bg-card)',
+            borderRadius: '20px',
+            padding: '2rem',
+            maxWidth: '600px',
+            width: '100%',
+            maxHeight: '90vh',
+            overflow: 'auto',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+            border: '1px solid var(--border-color)'
+          }}>
+            {/* Header */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: '1.5rem'
+            }}>
+              <h2 style={{
+                fontSize: '1.5rem',
+                fontWeight: 700,
+                color: 'var(--text-primary)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem'
+              }}>
+                <Plus size={24} color="#16A34A" />
+                Registrar Nuevo Riesgo
+              </h2>
+              <button
+                onClick={() => setShowAddRiskModal(false)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '0.5rem',
+                  color: 'var(--text-secondary)'
+                }}
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            {/* Formulario */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {/* Nombre */}
+              <div>
+                <label style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  color: 'var(--text-muted)',
+                  display: 'block',
+                  marginBottom: '0.5rem'
+                }}>
+                  Nombre del Riesgo *
+                </label>
+                <input
+                  type="text"
+                  value={newRisk.name}
+                  onChange={(e) => setNewRisk({ ...newRisk, name: e.target.value })}
+                  placeholder="Ej: Falla en servidores de producción"
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 1rem',
+                    borderRadius: '10px',
+                    border: '1px solid var(--border-color)',
+                    background: 'var(--bg-hover)',
+                    color: 'var(--text-primary)',
+                    fontSize: '0.875rem'
+                  }}
+                />
+              </div>
+
+              {/* Categoría */}
+              <div>
+                <label style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  color: 'var(--text-muted)',
+                  display: 'block',
+                  marginBottom: '0.5rem'
+                }}>
+                  Categoría
+                </label>
+                <select
+                  value={newRisk.category}
+                  onChange={(e) => setNewRisk({ ...newRisk, category: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 1rem',
+                    borderRadius: '10px',
+                    border: '1px solid var(--border-color)',
+                    background: 'var(--bg-hover)',
+                    color: 'var(--text-primary)',
+                    fontSize: '0.875rem'
+                  }}
+                >
+                  <option value="Seguridad">Seguridad</option>
+                  <option value="Tecnología">Tecnología</option>
+                  <option value="Mercado">Mercado</option>
+                  <option value="Legal">Legal</option>
+                  <option value="Operacional">Operacional</option>
+                  <option value="Financiero">Financiero</option>
+                </select>
+              </div>
+
+              {/* Descripción */}
+              <div>
+                <label style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  color: 'var(--text-muted)',
+                  display: 'block',
+                  marginBottom: '0.5rem'
+                }}>
+                  Descripción *
+                </label>
+                <textarea
+                  value={newRisk.description}
+                  onChange={(e) => setNewRisk({ ...newRisk, description: e.target.value })}
+                  placeholder="Describa el riesgo detalladamente..."
+                  rows={3}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 1rem',
+                    borderRadius: '10px',
+                    border: '1px solid var(--border-color)',
+                    background: 'var(--bg-hover)',
+                    color: 'var(--text-primary)',
+                    fontSize: '0.875rem',
+                    resize: 'vertical',
+                    fontFamily: 'inherit'
+                  }}
+                />
+              </div>
+
+              {/* Probabilidad e Impacto */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div>
+                  <label style={{
+                    fontSize: '0.875rem',
+                    fontWeight: 600,
+                    color: 'var(--text-muted)',
+                    display: 'block',
+                    marginBottom: '0.5rem'
+                  }}>
+                    Probabilidad (1-5)
+                  </label>
+                  <select
+                    value={newRisk.probability}
+                    onChange={(e) => setNewRisk({ ...newRisk, probability: parseInt(e.target.value) })}
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem 1rem',
+                      borderRadius: '10px',
+                      border: '1px solid var(--border-color)',
+                      background: 'var(--bg-hover)',
+                      color: 'var(--text-primary)',
+                      fontSize: '0.875rem'
+                    }}
+                  >
+                    <option value={1}>1 - Muy Baja</option>
+                    <option value={2}>2 - Baja</option>
+                    <option value={3}>3 - Media</option>
+                    <option value={4}>4 - Alta</option>
+                    <option value={5}>5 - Muy Alta</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={{
+                    fontSize: '0.875rem',
+                    fontWeight: 600,
+                    color: 'var(--text-muted)',
+                    display: 'block',
+                    marginBottom: '0.5rem'
+                  }}>
+                    Impacto (1-5)
+                  </label>
+                  <select
+                    value={newRisk.impact}
+                    onChange={(e) => setNewRisk({ ...newRisk, impact: parseInt(e.target.value) })}
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem 1rem',
+                      borderRadius: '10px',
+                      border: '1px solid var(--border-color)',
+                      background: 'var(--bg-hover)',
+                      color: 'var(--text-primary)',
+                      fontSize: '0.875rem'
+                    }}
+                  >
+                    <option value={1}>1 - Insignificante</option>
+                    <option value={2}>2 - Menor</option>
+                    <option value={3}>3 - Moderado</option>
+                    <option value={4}>4 - Mayor</option>
+                    <option value={5}>5 - Catastrófico</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Nivel calculado */}
+              <div style={{
+                background: 'var(--bg-hover)',
+                padding: '1rem',
+                borderRadius: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }}>
+                <span style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+                  Nivel de Riesgo Calculado:
+                </span>
+                <span style={{
+                  fontSize: '1.25rem',
+                  fontWeight: 700,
+                  color: newRisk.probability * newRisk.impact >= 17 ? '#DC2626' :
+                        newRisk.probability * newRisk.impact >= 10 ? '#F97316' :
+                        newRisk.probability * newRisk.impact >= 5 ? '#EAB308' : '#16A34A'
+                }}>
+                  {newRisk.probability * newRisk.impact} ({getZoneLabel(getRiskZone(newRisk.probability * newRisk.impact))})
+                </span>
+              </div>
+
+              {/* Estrategia */}
+              <div>
+                <label style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  color: 'var(--text-muted)',
+                  display: 'block',
+                  marginBottom: '0.5rem'
+                }}>
+                  Estrategia de Respuesta
+                </label>
+                <select
+                  value={newRisk.strategy}
+                  onChange={(e) => setNewRisk({ ...newRisk, strategy: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 1rem',
+                    borderRadius: '10px',
+                    border: '1px solid var(--border-color)',
+                    background: 'var(--bg-hover)',
+                    color: 'var(--text-primary)',
+                    fontSize: '0.875rem'
+                  }}
+                >
+                  <option value="Mitigar">Mitigar</option>
+                  <option value="Transferir">Transferir</option>
+                  <option value="Aceptar">Aceptar</option>
+                  <option value="Evitar">Evitar</option>
+                </select>
+              </div>
+
+              {/* Responsable */}
+              <div>
+                <label style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  color: 'var(--text-muted)',
+                  display: 'block',
+                  marginBottom: '0.5rem'
+                }}>
+                  Responsable
+                </label>
+                <input
+                  type="text"
+                  value={newRisk.responsible}
+                  onChange={(e) => setNewRisk({ ...newRisk, responsible: e.target.value })}
+                  placeholder="Ej: Product Manager / CTO"
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 1rem',
+                    borderRadius: '10px',
+                    border: '1px solid var(--border-color)',
+                    background: 'var(--bg-hover)',
+                    color: 'var(--text-primary)',
+                    fontSize: '0.875rem'
+                  }}
+                />
+              </div>
+
+              {/* Botones */}
+              <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                <button
+                  onClick={handleAddRisk}
+                  disabled={!newRisk.name.trim() || !newRisk.description.trim()}
+                  style={{
+                    flex: 1,
+                    padding: '0.875rem 1.5rem',
+                    background: '#16A34A',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '10px',
+                    fontSize: '0.9375rem',
+                    fontWeight: 600,
+                    cursor: (!newRisk.name.trim() || !newRisk.description.trim()) ? 'not-allowed' : 'pointer',
+                    opacity: (!newRisk.name.trim() || !newRisk.description.trim()) ? 0.6 : 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.5rem'
+                  }}
+                >
+                  <Check size={18} />
+                  Registrar Riesgo
+                </button>
+                <button
+                  onClick={() => setShowAddRiskModal(false)}
+                  style={{
+                    padding: '0.875rem 1.5rem',
+                    background: 'var(--bg-hover)',
+                    color: 'var(--text-primary)',
+                    border: '1px solid var(--border-color)',
+                    borderRadius: '10px',
+                    fontSize: '0.9375rem',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

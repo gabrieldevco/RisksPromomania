@@ -5,6 +5,7 @@ import { getZoneColor, getZoneLabel, getRiskZone } from '../data/risks';
 const ControlManager = ({ risk, onControlChange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [editingControlId, setEditingControlId] = useState(null);
   
   // Estado para nuevo control
   const [newControl, setNewControl] = useState({
@@ -112,6 +113,25 @@ const ControlManager = ({ risk, onControlChange }) => {
     }
   };
 
+  const handleEditControl = (controlId, updatedData) => {
+    const currentControls = risk.appliedControls || [];
+    const updatedControls = currentControls.map(c =>
+      c.id === controlId ? { ...c, ...updatedData } : c
+    );
+
+    const impactData = calculateControlImpact(updatedControls);
+
+    onControlChange(risk.id, {
+      controlLevel: updatedControls.length + 1,
+      appliedControls: updatedControls,
+      residualImpact: impactData.impact,
+      residualLevel: impactData.level,
+      residualZone: impactData.zone
+    });
+
+    setEditingControlId(null);
+  };
+
   const getControlTypeLabel = (type) => {
     const ct = controlTypes.find(c => c.value === type);
     return ct ? `${ct.icon} ${ct.label}` : type;
@@ -185,66 +205,196 @@ const ControlManager = ({ risk, onControlChange }) => {
       {/* Lista de controles */}
       {hasControls && (
         <div style={{ marginBottom: '1rem' }}>
-          {risk.appliedControls.map((control, index) => (
+          {risk.appliedControls.map((control) => (
             <div
               key={control.id}
               style={{
                 background: 'var(--bg-card)',
                 borderRadius: '12px',
-                padding: '1rem',
+                padding: editingControlId === control.id ? '1rem' : '1rem',
                 marginBottom: '0.75rem',
-                border: '1px solid var(--border-color)',
+                border: editingControlId === control.id ? '2px dashed #6B21A8' : '1px solid var(--border-color)',
                 position: 'relative'
               }}
             >
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginBottom: '0.5rem'
-              }}>
-                <span style={{
-                  fontSize: '0.8125rem',
-                  fontWeight: 700,
-                  color: '#6B21A8'
-                }}>
-                  {getControlTypeLabel(control.type)}
-                </span>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <span style={{
-                    fontSize: '0.75rem',
-                    padding: '0.25rem 0.5rem',
-                    background: '#F3E8FF',
-                    borderRadius: '4px',
+              {editingControlId === control.id ? (
+                // Formulario de Edición
+                <div>
+                  <h4 style={{
+                    fontSize: '0.875rem',
+                    fontWeight: 700,
                     color: '#6B21A8',
-                    fontWeight: 600
+                    marginBottom: '0.75rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
                   }}>
-                    Ef: {getEffectivenessLabel(control.effectiveness)}
-                  </span>
-                  <button
-                    onClick={() => handleRemoveControl(control.id)}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                      padding: '4px',
+                    <Edit2 size={16} />
+                    Editar Control
+                  </h4>
+
+                  {/* Tipo */}
+                  <div style={{ marginBottom: '0.5rem' }}>
+                    <label style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: '0.25rem' }}>
+                      Tipo
+                    </label>
+                    <select
+                      value={control.type}
+                      onChange={(e) => handleEditControl(control.id, { type: e.target.value })}
+                      style={{
+                        width: '100%',
+                        padding: '0.5rem',
+                        borderRadius: '6px',
+                        border: '1px solid var(--border-color)',
+                        background: 'var(--bg-hover)',
+                        fontSize: '0.8125rem'
+                      }}
+                    >
+                      {controlTypes.map(type => (
+                        <option key={type.value} value={type.value}>
+                          {type.icon} {type.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Descripción */}
+                  <div style={{ marginBottom: '0.5rem' }}>
+                    <label style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: '0.25rem' }}>
+                      Descripción
+                    </label>
+                    <textarea
+                      value={control.description}
+                      onChange={(e) => handleEditControl(control.id, { description: e.target.value })}
+                      rows={2}
+                      style={{
+                        width: '100%',
+                        padding: '0.5rem',
+                        borderRadius: '6px',
+                        border: '1px solid var(--border-color)',
+                        background: 'var(--bg-hover)',
+                        fontSize: '0.8125rem',
+                        resize: 'vertical'
+                      }}
+                    />
+                  </div>
+
+                  {/* Efectividad */}
+                  <div style={{ marginBottom: '0.75rem' }}>
+                    <label style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: '0.25rem' }}>
+                      Efectividad: {getEffectivenessLabel(control.effectiveness)}
+                    </label>
+                    <input
+                      type="range"
+                      min="1"
+                      max="5"
+                      step="1"
+                      value={control.effectiveness}
+                      onChange={(e) => handleEditControl(control.id, { effectiveness: parseInt(e.target.value) })}
+                      style={{
+                        width: '100%',
+                        height: '6px',
+                        borderRadius: '3px',
+                        cursor: 'pointer'
+                      }}
+                    />
+                    <div style={{
                       display: 'flex',
-                      alignItems: 'center',
-                      color: '#DC2626'
+                      justifyContent: 'space-between',
+                      fontSize: '0.625rem',
+                      color: 'var(--text-muted)',
+                      marginTop: '0.25rem'
+                    }}>
+                      <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                    </div>
+                  </div>
+
+                  {/* Botón Cancelar */}
+                  <button
+                    onClick={() => setEditingControlId(null)}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      background: 'var(--bg-hover)',
+                      border: '1px solid var(--border-color)',
+                      borderRadius: '6px',
+                      fontSize: '0.8125rem',
+                      fontWeight: 600,
+                      cursor: 'pointer'
                     }}
                   >
-                    <X size={16} />
+                    Terminar Edición
                   </button>
                 </div>
-              </div>
-              <p style={{
-                fontSize: '0.8125rem',
-                color: 'var(--text-secondary)',
-                margin: 0,
-                lineHeight: 1.5
-              }}>
-                {control.description}
-              </p>
+              ) : (
+                // Vista Normal del Control
+                <>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: '0.5rem'
+                  }}>
+                    <span style={{
+                      fontSize: '0.8125rem',
+                      fontWeight: 700,
+                      color: '#6B21A8'
+                    }}>
+                      {getControlTypeLabel(control.type)}
+                    </span>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      <span style={{
+                        fontSize: '0.75rem',
+                        padding: '0.25rem 0.5rem',
+                        background: '#F3E8FF',
+                        borderRadius: '4px',
+                        color: '#6B21A8',
+                        fontWeight: 600
+                      }}>
+                        Ef: {getEffectivenessLabel(control.effectiveness)}
+                      </span>
+                      <button
+                        onClick={() => setEditingControlId(control.id)}
+                        style={{
+                          background: 'transparent',
+                          border: 'none',
+                          cursor: 'pointer',
+                          padding: '4px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          color: '#6B21A8'
+                        }}
+                        title="Editar control"
+                      >
+                        <Edit2 size={16} />
+                      </button>
+                      <button
+                        onClick={() => handleRemoveControl(control.id)}
+                        style={{
+                          background: 'transparent',
+                          border: 'none',
+                          cursor: 'pointer',
+                          padding: '4px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          color: '#DC2626'
+                        }}
+                        title="Eliminar control"
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+                  </div>
+                  <p style={{
+                    fontSize: '0.8125rem',
+                    color: 'var(--text-secondary)',
+                    margin: 0,
+                    lineHeight: 1.5
+                  }}>
+                    {control.description}
+                  </p>
+                </>
+              )}
             </div>
           ))}
         </div>
