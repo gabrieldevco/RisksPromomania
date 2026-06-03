@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
-import { risks, getZoneLabel, updateRiskControlLevel, controlLevels, getRiskZone } from '../data/risks';
+import { getZoneLabel, getRiskZone } from '../data/risks';
 import RiskCard from '../components/RiskCard';
-import { Plus, X, Check } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 
 const Riesgos = ({ risksWithControl, setRisksWithControl, handleControlChange }) => {
   const [filter, setFilter] = useState('all');

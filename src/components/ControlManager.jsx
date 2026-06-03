@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Shield, Plus, X, Edit2, Check, Sliders, ChevronDown, Sparkles, TrendingDown, Activity } from 'lucide-react';
+import { Shield, Plus, X, Edit2, Check, Sparkles } from 'lucide-react';
 import { getZoneColor, getZoneLabel, getRiskZone } from '../data/risks';
 
 const ControlManager = ({ risk, onControlChange }) => {
-  const [isEditing, setIsEditing] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingControlId, setEditingControlId] = useState(null);
   

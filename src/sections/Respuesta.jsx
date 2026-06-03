@@ -1,4 +1,4 @@
-import { risks, getZoneColor } from '../data/risks';
+import { getZoneColor } from '../data/risks';
 import { User, Target, CheckSquare, ArrowRight } from 'lucide-react';
 
 const strategyStyles = {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { risks, getRiskZone, getZoneColor, getZoneLabel } from '../data/risks';
+import { getRiskZone, getZoneColor, getZoneLabel } from '../data/risks';
 import { AlertTriangle, Target, Shield, Eye, Info } from 'lucide-react';
 
 const Matriz = ({ isDarkMode, risksWithControl }) => {
@@ -189,8 +189,7 @@ const Matriz = ({ isDarkMode, risksWithControl }) => {
                 const zoneColor = getZoneColor(zone);
                 const riskIds = cellRisks.map(r => r.id).join(', ');
                 const isHovered = hoveredCell && hoveredCell.p === p && hoveredCell.i === i;
-                const isSelected = selectedZone === zone;
-
+                
                 return (
                   <div
                     key={`cell-${p}-${i}`}

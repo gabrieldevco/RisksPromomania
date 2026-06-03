@@ -1,5 +1,5 @@
-import { controlLevels, getControlLabel, getZoneColor, getZoneLabel, getProbabilityLabel, getImpactLabel } from '../data/risks';
-import { Shield, Sliders, TrendingDown, AlertTriangle, CheckCircle, Clock, DollarSign, Users, Activity } from 'lucide-react';
+import { controlLevels, getControlLabel, getZoneColor, getZoneLabel } from '../data/risks';
+import { Shield, Sliders, TrendingDown, AlertTriangle, CheckCircle, Clock, DollarSign, Activity } from 'lucide-react';
 
 // Medidas de control específicas por nivel y tipo de riesgo
 const getControlMeasures = (riskCategory, level) => {
