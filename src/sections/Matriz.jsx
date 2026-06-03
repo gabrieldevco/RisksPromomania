@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { risks, getRiskZone, getZoneColor, getZoneLabel } from '../data/risks';
 import { AlertTriangle, Target, Shield, Eye, Info } from 'lucide-react';
 
